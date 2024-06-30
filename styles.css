@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #2F4858; /* Darker background */
+    color: #F7FF00; /* Lighter foreground color */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #F7FF00; /* Lighter foreground color */
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #F7FF00; /* Lighter foreground color */
+}
+
+#dataTableContainer {
+    width: 80%;
+    max-width: 800px;
+    background-color: #007084; /* Container background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#searchInput {
+    margin: 10px auto;
+    padding: 8px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    width: 80%;
+    background-color: #007084; /* Container background color */
+    color: #F7FF00; /* Lighter foreground color */
+    display: block;
+}
+
+#dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#dataTable th, #dataTable td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #666;
+    color: #F7FF00; /* Lighter foreground color */
+}
+
+#dataTable th {
+    cursor: pointer;
+    position: relative;
+}
+
+.highlight {
+    background-color: #00C486; /* Search highlight color */
+    color: #2F4858; /* Darker text color */
+}
+
+.date-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #007084; /* Container background color */
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.date-container p {
+    margin: 0;
+    font-weight: bold;
+    color: #F7FF00; /* Lighter foreground color */
+}
+
+.program-name {
+    cursor: pointer;
+    color: #F7FF00; /* Lighter foreground color */
+}
