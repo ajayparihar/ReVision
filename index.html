@@ -1,17 +1,31 @@
+<!-- Author: Ajay Singh -->
+<!-- Version: 1.1 -->
+<!-- Date: 2024-07-01 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Data -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReVision</title>
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
+    <!-- Header Section -->
     <header>
-        <h1>ReVision</h1>
+        <h1 id="headerTitle">ReVision</h1>
     </header>
+
+    <!-- Main Container -->
     <div id="dataTableContainer">
+        <!-- Search Bar -->
         <input type="text" id="searchInput" class="search-bar" placeholder="Search..." autofocus>
+
+        <!-- Data Table -->
         <table id="dataTable">
             <thead>
                 <tr>
@@ -25,10 +39,20 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Date Display and Calendar -->
     <div class="date-container">
-        <p id="dateDisplay"></p>
+        <p id="dateDisplay" class="date-display"></p>
+        <input type="text" id="datePicker" style="display:none;">
     </div>
+
+    <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
+<!-- Author: Ajay Singh -->
+<!-- Version: 1.1 -->
+<!-- Date: 2024-07-01 -->

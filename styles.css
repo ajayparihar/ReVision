@@ -1,3 +1,8 @@
+/* Author: Ajay Singh */
+/* Version: 1.1 */
+/* Date: 2024-07-01 */
+
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -11,6 +16,7 @@ body {
     height: 100vh;
 }
 
+/* Header Section */
 header {
     text-align: center;
     margin-bottom: 20px;
@@ -21,8 +27,10 @@ h1 {
     font-size: 24px;
     margin: 0;
     color: #F7FF00; /* Lighter foreground color */
+    cursor: pointer; /* Show pointer cursor on hover */
 }
 
+/* Main Container */
 #dataTableContainer {
     width: 80%;
     max-width: 800px;
@@ -34,6 +42,7 @@ h1 {
     position: relative;
 }
 
+/* Search Bar */
 #searchInput {
     margin: 10px auto;
     padding: 8px;
@@ -45,6 +54,7 @@ h1 {
     display: block;
 }
 
+/* Data Table */
 #dataTable {
     width: 100%;
     border-collapse: collapse;
@@ -62,11 +72,13 @@ h1 {
     position: relative;
 }
 
+/* Highlight */
 .highlight {
     background-color: #00C486; /* Search highlight color */
     color: #2F4858; /* Darker text color */
 }
 
+/* Date Display and Calendar */
 .date-container {
     position: absolute;
     top: 20px;
@@ -75,6 +87,13 @@ h1 {
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align items to the right */
+}
+
+.date-container .date-display {
+    align-self: flex-end; /* Align date display to the right */
 }
 
 .date-container p {
@@ -83,7 +102,15 @@ h1 {
     color: #F7FF00; /* Lighter foreground color */
 }
 
+/* Program Name */
 .program-name {
     cursor: pointer;
     color: #F7FF00; /* Lighter foreground color */
+}
+
+/* Flatpickr Adjustments */
+.flatpickr-calendar {
+    top: 0 !important; /* Position calendar popup at the top */
+    right: 0 !important; /* Position calendar popup to the right */
+    left: auto !important; /* Reset left positioning */
 }
