@@ -1,7 +1,3 @@
-/* Author: Ajay Singh */
-/* Version: 1.2 */
-/* Date: 2024-07-01 */
-
 document.addEventListener('DOMContentLoaded', () => {
     // Cache DOM elements
     const dateDisplay = document.getElementById('dateDisplay');
@@ -13,28 +9,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the current date
     let today = moment();
 
-    // Display the current date
-    dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
-
-    // Initialize Flatpickr
-    flatpickr(datePicker, {
-        defaultDate: today.format('YYYY-MM-DD'),
-        onChange: (selectedDates) => {
-            today = moment(selectedDates[0]);
-            dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
-            fetchDataAndFilter();
-        }
-    });
-
-    // Show Flatpickr when dateDisplay is clicked
-    dateDisplay.addEventListener('click', () => datePicker.click());
-
-    // Reload page on header click
-    headerTitle.style.cursor = 'pointer';
-    headerTitle.addEventListener('click', () => location.reload());
+    /**
+     * Update the date display element with the formatted current date.
+     */
+    const updateDateDisplay = () => {
+        dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
+    };
 
     /**
-     * Fetch CSV data from the given URL.
+     * Initialize the Flatpickr date picker.
+     */
+    const initializeFlatpickr = () => {
+        flatpickr(datePicker, {
+            defaultDate: today.format('YYYY-MM-DD'),
+            onChange: (selectedDates) => {
+                today = moment(selectedDates[0]);
+                updateDateDisplay();
+                fetchDataAndFilter();
+            }
+        });
+    };
+
+    /**
+     * Handle the header click event to reload the page.
+     */
+    const setupHeaderClick = () => {
+        headerTitle.style.cursor = 'pointer';
+        headerTitle.addEventListener('click', () => location.reload());
+    };
+
+    /**
+     * Fetch CSV data from the specified URL.
      * @returns {Promise<string>} CSV data as a string.
      */
     const fetchCSVData = async () => {
@@ -49,17 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /**
-     * Parse CSV data into rows.
+     * Parse CSV data into an array of rows.
      * @param {string} csv - CSV data as a string.
      * @returns {Array<string>} Array of rows.
      */
-    const parseCSV = (csv) => csv
-        .split('\n')
-        .map(row => row.trim())
-        .filter(row => row);
+    const parseCSV = (csv) => {
+        return csv
+            .split('\n')
+            .map(row => row.trim())
+            .filter(row => row);
+    };
 
     /**
-     * Create and append table rows.
+     * Create and append table rows based on the provided data.
      * @param {Array<string>} rows - Array of rows.
      */
     const createTableRows = (rows) => {
@@ -68,30 +75,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
 
             // Create and append Program Name cell
-            const programName = document.createElement('td');
-            programName.textContent = cols[0];
-            programName.classList.add('program-name');
-            programName.style.cursor = 'pointer';
-            programName.addEventListener('click', () => {
+            const programNameCell = createTableCell(cols[0], 'program-name');
+            programNameCell.addEventListener('click', () => {
                 const programLink = cols[3]?.trim();
                 if (programLink) {
                     window.open(programLink, '_blank');
                 }
             });
-            tr.appendChild(programName);
+            tr.appendChild(programNameCell);
 
             // Create and append Date cell
-            const date = document.createElement('td');
-            date.textContent = cols[1];
-            tr.appendChild(date);
+            const dateCell = createTableCell(cols[1]);
+            tr.appendChild(dateCell);
 
             // Create and append Revisions cell
-            const revisions = document.createElement('td');
-            revisions.textContent = cols[2];
-            tr.appendChild(revisions);
+            const revisionsCell = createTableCell(cols[2]);
+            tr.appendChild(revisionsCell);
 
             tableBody.appendChild(tr);
         });
+    };
+
+    /**
+     * Create a table cell with the given content and optional class.
+     * @param {string} content - Cell content.
+     * @param {string} [className] - Optional class name for the cell.
+     * @returns {HTMLTableCellElement} The created table cell.
+     */
+    const createTableCell = (content, className) => {
+        const cell = document.createElement('td');
+        cell.textContent = content;
+        if (className) {
+            cell.classList.add(className);
+        }
+        return cell;
     };
 
     /**
@@ -132,28 +149,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    /**
+     * Highlight search terms in the table.
+     */
+    const highlightSearchTerms = () => {
+        const searchText = searchInput.value.trim().toLowerCase();
+        const rows = Array.from(tableBody.children);
+
+        rows.forEach(tr => {
+            const cells = Array.from(tr.children);
+            let rowMatch = false;
+
+            cells.forEach(td => {
+                const cellText = td.textContent.trim();
+                const lowerCellText = cellText.toLowerCase();
+                const highlightedText = searchText
+                    ? cellText.replace(new RegExp(`(${searchText})`, 'gi'), '<span class="highlight">$1</span>')
+                    : cellText;
+
+                td.innerHTML = highlightedText;
+
+                if (lowerCellText.includes(searchText)) {
+                    rowMatch = true;
+                }
+            });
+
+            tr.style.display = rowMatch ? '' : 'none';
+        });
+    };
+
+    /**
+     * Set up search functionality with debouncing.
+     */
+    const setupSearch = () => {
+        let debounceTimeout;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(highlightSearchTerms, 300);
+        });
+    };
+
+    // Initialize functionalities
+    updateDateDisplay();
+    initializeFlatpickr();
+    setupHeaderClick();
+    setupSearch();
+
     // Initial data fetch and filter
     fetchDataAndFilter();
-
-    // Search functionality with debouncing
-    let debounceTimeout;
-    searchInput.addEventListener('input', () => {
-        clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(() => {
-            const searchText = searchInput.value.trim().toLowerCase();
-            Array.from(tableBody.children).forEach(tr => {
-                const cells = Array.from(tr.children);
-                const rowMatch = cells.some(td => {
-                    const cellText = td.textContent.trim().toLowerCase();
-                    const isMatch = cellText.includes(searchText);
-                    td.innerHTML = isMatch
-                        ? cellText.replace(new RegExp(searchText, 'gi'), match => `<span class="highlight">${match}</span>`)
-                        : cellText;
-                    return isMatch;
-                });
-
-                tr.style.display = rowMatch ? '' : 'none';
-            });
-        }, 300); // Debounce delay
-    });
 });
