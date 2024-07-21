@@ -1,7 +1,3 @@
-/* Author: Ajay Singh */
-/* Version: 1.1 */
-/* Date: 2024-07-01 */
-
 document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const dateDisplay = document.getElementById('dateDisplay');
@@ -109,38 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     tableBody.innerHTML = '<tr><td colspan="3">Nothing to revise today. Enjoy your day!</td></tr>';
                 }
-
-                // Search functionality
-                searchInput.addEventListener('input', function() {
-                    const searchText = this.value.trim().toLowerCase();
-
-                    rows.forEach((row, index) => {
-                        const cols = row.split(',');
-                        const tr = tableBody.children[index];
-
-                        let rowMatch = false; // Flag to track if any cell in the row matches
-
-                        // Check first three columns for a match
-                        for (let i = 0; i < 3; i++) {
-                            const col = cols[i].trim();
-                            const td = tr.children[i];
-
-                            if (col.toLowerCase().includes(searchText)) {
-                                rowMatch = true; // Set flag to true if any cell matches
-                                const pattern = new RegExp(searchText, 'gi'); // 'gi' for global and case-insensitive match
-                                td.innerHTML = col.replace(pattern, match => `<span class="highlight">${match}</span>`);
-                            } else {
-                                td.innerHTML = col; // Reset original text if no match
-                            }
-                        }
-
-                        if (rowMatch) {
-                            tr.style.display = ''; // Show row if any cell matches
-                        } else {
-                            tr.style.display = 'none'; // Hide row if no match in any cell
-                        }
-                    });
-                });
             })
             .catch(error => {
                 console.error('Error fetching CSV file:', error);
@@ -150,4 +114,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial data fetch and filter
     fetchDataAndFilter();
+
+    // Search functionality
+    searchInput.addEventListener('input', function() {
+        const searchText = this.value.trim().toLowerCase();
+
+        const rows = Array.from(tableBody.children);
+        rows.forEach(tr => {
+            let rowMatch = false; // Flag to track if any cell in the row matches
+
+            // Check first three columns for a match
+            for (let i = 0; i < 3; i++) {
+                const td = tr.children[i];
+                const col = td.textContent.trim();
+
+                if (col.toLowerCase().includes(searchText)) {
+                    rowMatch = true; // Set flag to true if any cell matches
+                    const pattern = new RegExp(searchText, 'gi'); // 'gi' for global and case-insensitive match
+                    td.innerHTML = col.replace(pattern, match => `<span class="highlight">${match}</span>`);
+                } else {
+                    td.innerHTML = col; // Reset original text if no match
+                }
+            }
+
+            if (rowMatch) {
+                tr.style.display = ''; // Show row if any cell matches
+            } else {
+                tr.style.display = 'none'; // Hide row if no match in any cell
+            }
+        });
+    });
 });
