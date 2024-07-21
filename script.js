@@ -1,3 +1,7 @@
+/* Author: Ajay Singh */
+/* Version: 1.1 */
+/* Date: 2024-07-01 */
+
 document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const dateDisplay = document.getElementById('dateDisplay');
