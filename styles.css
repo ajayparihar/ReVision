@@ -1,5 +1,5 @@
 /* Author: Ajay Singh */
-/* Version: 1.1 */
+/* Version: 1.2 */
 /* Date: 2024-07-01 */
 
 /* Global Styles */
@@ -7,75 +7,83 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #2F4858; /* Darker background */
-    color: #F7FF00; /* Lighter foreground color */
+    background-color: #2F4858;
+    color: #F7FF00;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
 
-/* Header Section */
+/* Header */
 header {
     text-align: center;
     margin-bottom: 20px;
-    color: #F7FF00; /* Lighter foreground color */
+    color: #F7FF00;
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 2rem;
     margin: 0;
-    color: #F7FF00; /* Lighter foreground color */
-    cursor: pointer; /* Show pointer cursor on hover */
+    cursor: pointer;
 }
 
 /* Main Container */
 #dataTableContainer {
-    width: 80%;
-    max-width: 800px;
-    background-color: #007084; /* Container background color */
-    padding: 20px;
+    width: 60%;
+    max-width: 100%;
+    background-color: #007084;
+    padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
-    position: relative;
+    box-sizing: border-box;
+    overflow-x: auto;
 }
 
 /* Search Bar */
 #searchInput {
     margin: 10px auto;
-    padding: 8px;
+    padding: 0.5rem;
     border: 1px solid #888;
     border-radius: 4px;
-    width: 80%;
-    background-color: #007084; /* Container background color */
-    color: #F7FF00; /* Lighter foreground color */
-    display: block;
+    width: 100%;
+    max-width: 100%;
+    background-color: #007084;
+    color: #F7FF00;
+    box-sizing: border-box;
 }
 
 /* Data Table */
 #dataTable {
     width: 100%;
     border-collapse: collapse;
+    min-width: 600px;
+    box-sizing: border-box;
 }
 
 #dataTable th, #dataTable td {
-    padding: 8px;
+    padding: 0.5rem;
     text-align: left;
     border-bottom: 1px solid #666;
-    color: #F7FF00; /* Lighter foreground color */
+    color: #F7FF00;
 }
 
 #dataTable th {
     cursor: pointer;
-    position: relative;
+}
+
+/* Table Row Hover Effect */
+#dataTable tr:hover {
+    background-color: #005063;
 }
 
 /* Highlight */
 .highlight {
-    background-color: #00C486; /* Search highlight color */
-    color: #2F4858; /* Darker text color */
+    background-color: #00C486;
+    color: #2F4858;
 }
 
 /* Date Display and Calendar */
@@ -83,34 +91,63 @@ h1 {
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: #007084; /* Container background color */
-    padding: 10px;
+    background-color: #007084;
+    padding: 0.5rem;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Align items to the right */
+    align-items: flex-end;
+    box-sizing: border-box;
 }
 
 .date-container .date-display {
-    align-self: flex-end; /* Align date display to the right */
+    align-self: flex-end;
 }
 
 .date-container p {
     margin: 0;
     font-weight: bold;
-    color: #F7FF00; /* Lighter foreground color */
 }
 
 /* Program Name */
 .program-name {
     cursor: pointer;
-    color: #F7FF00; /* Lighter foreground color */
 }
 
 /* Flatpickr Adjustments */
 .flatpickr-calendar {
-    top: 0 !important; /* Position calendar popup at the top */
-    right: 0 !important; /* Position calendar popup to the right */
-    left: auto !important; /* Reset left positioning */
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #dataTableContainer {
+        width: 80%;
+    }
+
+    #dataTable {
+        min-width: 0;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #dataTableContainer {
+        width: 90%;
+        padding: 0.5rem;
+    }
+
+    #searchInput {
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
 }

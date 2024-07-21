@@ -1,41 +1,31 @@
 <!-- Author: Ajay Singh -->
-<!-- Version: 1.1 -->
+<!-- Version: 1.2 -->
 <!-- Date: 2024-07-01 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta Data -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReVision</title>
 
-     <!-- Apple Touch Icon -->
-     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-    
-     <!-- Favicon for various sizes -->
-     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-     
-     <!-- Web App Manifest -->
-     <link rel="manifest" href="favicon_io/site.webmanifest">
+    <!-- Icons and Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
 
-    <!-- Stylesheet -->
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <h1 id="headerTitle">ReVision</h1>
     </header>
 
-    <!-- Main Container -->
     <div id="dataTableContainer">
-        <!-- Search Bar -->
         <input type="text" id="searchInput" class="search-bar" placeholder="Search..." autofocus>
-
-        <!-- Data Table -->
         <table id="dataTable">
             <thead>
                 <tr>
@@ -50,19 +40,14 @@
         </table>
     </div>
 
-    <!-- Date Display and Calendar -->
     <div class="date-container">
         <p id="dateDisplay" class="date-display"></p>
         <input type="text" id="datePicker" style="display:none;">
     </div>
 
-    <!-- JavaScript -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="script.js"></script>
 </body>
 </html>
-
-<!-- Author: Ajay Singh -->
-<!-- Version: 1.1 -->
-<!-- Date: 2024-07-01 -->
