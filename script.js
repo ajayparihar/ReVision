@@ -1,6 +1,7 @@
 /* Author: Ajay Singh */
-/* Version: 1.2 */
-/* Date: 2024-07-01 */
+/* Version: 1.3 */
+/* Date: 01-07-2024 */
+
 document.addEventListener('DOMContentLoaded', () => {
     // Elements
     const dateDisplay = document.getElementById('dateDisplay');
@@ -8,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('#dataTable tbody');
     const searchInput = document.getElementById('searchInput');
     const headerTitle = document.getElementById('headerTitle');
+    const prevDayButton = document.getElementById('prevDay');
+    const nextDayButton = document.getElementById('nextDay');
 
     // Variables
     let today = moment(); // Current date using moment.js
@@ -29,16 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     dateDisplay.addEventListener('click', () => datePicker.click());
 
     // Reload Page on Header Click
-    headerTitle.style.cursor = 'pointer'; // Show pointer cursor on hover
-    headerTitle.addEventListener('click', () => location.reload()); // Reload the page
+    headerTitle.addEventListener('click', () => location.reload());
 
     // Function to handle link click events
     const handleLinkClick = (event, url) => {
-        if (url) {
-            // Open link in a new tab/window
-            if (event.button === 0 || event.button === 1) {
-                window.open(url.trim(), '_blank');
-            }
+        if (url && (event.button === 0 || event.button === 1)) {
+            window.open(url.trim(), '_blank');
         }
     };
 
@@ -51,13 +50,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const rows = csv.split('\n').map(row => row.trim()).filter(row => row); // Remove empty rows
             tableBody.innerHTML = ''; // Clear existing data
 
-            // Function to create and append table rows based on the provided data
-            const createTableRows = (rows) => {
-                rows.forEach(row => {
+            // Filter programs scheduled for review after specified intervals
+            const filteredRows = rows.filter(row => {
+                const cols = row.split(',');
+                const programDate = moment(cols[1], 'DD-MM-YYYY'); // Parse date using moment.js
+                return programDate.isSame(today.clone().subtract(1, 'days'), 'day') ||
+                       programDate.isSame(today.clone().subtract(15, 'days'), 'day') ||
+                       programDate.isSame(today.clone().subtract(1, 'weeks'), 'day') ||
+                       programDate.isSame(today.clone().subtract(1, 'months'), 'day') ||
+                       programDate.isSame(today.clone().subtract(1, 'years'), 'day');
+            });
+
+            if (filteredRows.length > 0) {
+                filteredRows.forEach(row => {
                     const cols = row.split(',');
                     const tr = document.createElement('tr');
 
-                    // Function to create and return a table cell
                     const createTableCell = (content, className) => {
                         const cell = document.createElement('td');
                         cell.textContent = content;
@@ -67,42 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         return cell;
                     };
 
-                    // Create and append Program Name cell
                     const programNameCell = createTableCell(cols[0], 'program-name');
-                    programNameCell.style.cursor = 'pointer'; // Show pointer cursor on hover
+                    programNameCell.style.cursor = 'pointer';
                     programNameCell.addEventListener('mousedown', (event) => handleLinkClick(event, cols[3]));
                     tr.appendChild(programNameCell);
 
-                    // Create and append Date cell
-                    const dateCell = createTableCell(cols[1]);
-                    tr.appendChild(dateCell);
-
-                    // Create and append Revisions cell
-                    const revisionsCell = createTableCell(cols[2]);
-                    tr.appendChild(revisionsCell);
+                    tr.appendChild(createTableCell(cols[1]));
+                    tr.appendChild(createTableCell(cols[2]));
 
                     tableBody.appendChild(tr);
                 });
-            };
-
-            // Function to filter programs matching the specified intervals
-            const filterPrograms = (rows) => {
-                return rows.filter(row => {
-                    const cols = row.split(',');
-                    const programDate = moment(cols[1], 'DD-MM-YYYY'); // Parse date using moment.js
-
-                    // Compare dates with exact matches
-                    return programDate.isSame(today.clone().subtract(1, 'days'), 'day') ||
-                           programDate.isSame(today.clone().subtract(1, 'weeks'), 'day') ||
-                           programDate.isSame(today.clone().subtract(1, 'months'), 'day') ||
-                           programDate.isSame(today.clone().subtract(1, 'years'), 'day');
-                });
-            };
-
-            // Filter and create table rows
-            const filteredRows = filterPrograms(rows);
-            if (filteredRows.length > 0) {
-                createTableRows(filteredRows);
             } else {
                 tableBody.innerHTML = '<tr><td colspan="3">Nothing to revise today. Enjoy your day!</td></tr>';
             }
@@ -124,12 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const rows = Array.from(tableBody.children);
             rows.forEach(tr => {
                 let rowMatch = false; // Flag to track if any cell in the row matches
-
-                // Check first three columns for a match
                 for (let i = 0; i < 3; i++) {
                     const td = tr.children[i];
                     const col = td.textContent.trim();
-
                     if (col.toLowerCase().includes(searchText)) {
                         rowMatch = true; // Set flag to true if any cell matches
                         const pattern = new RegExp(searchText, 'gi'); // 'gi' for global and case-insensitive match
@@ -138,9 +117,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         td.innerHTML = col; // Reset original text if no match
                     }
                 }
-
                 tr.style.display = rowMatch ? '' : 'none'; // Show or hide row based on match
             });
         }, 300); // Debounce delay
+    });
+
+    // Date navigation buttons functionality
+    prevDayButton.addEventListener('click', () => {
+        today = today.subtract(1, 'days');
+        dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
+        fetchDataAndFilter();
+    });
+
+    nextDayButton.addEventListener('click', () => {
+        today = today.add(1, 'days');
+        dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
+        fetchDataAndFilter();
     });
 });
