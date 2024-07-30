@@ -241,3 +241,10 @@ h1:hover::after {
         font-size: 2rem; /* Adjusted for small screens */
     }
 }
+
+/* Custom styles for Flatpickr */
+.flatpickr-calendar {
+    top: 0 !important; /* Aligns the calendar to the top */
+    right: 0 !important; /* Aligns the calendar to the right */
+    left: auto !important; /* Remove the default left alignment */
+}
