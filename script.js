@@ -1,7 +1,3 @@
-/* Author: Ajay Singh */
-/* Version: 1.3 */
-/* Date: 01-07-2024 */
-
 document.addEventListener('DOMContentLoaded', () => {
     // Elements
     const dateDisplay = document.getElementById('dateDisplay');
@@ -18,9 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Display current date
     dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
 
-    // Initialize Flatpickr
+    // Initialize Flatpickr with explicit position settings
     flatpickr(datePicker, {
         defaultDate: today.format('YYYY-MM-DD'),
+        position: 'above', // Set position to 'above' to adjust manually
         onChange: (selectedDates) => {
             today = moment(selectedDates[0]); // Update today's date
             dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
