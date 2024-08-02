@@ -1,3 +1,11 @@
+/**
+ * Author: Ajay Singh
+ * Version: 1.3
+ * Date: 01-07-2024
+ * Description: JavaScript for handling date display, date picker, data fetching and filtering, search functionality, and date navigation buttons.
+ */
+
+// Wait for the DOM to fully load before executing the script
 document.addEventListener('DOMContentLoaded', () => {
     // Elements
     const dateDisplay = document.getElementById('dateDisplay');
@@ -10,12 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Variables
     let today = moment(); // Current date using moment.js
+    let flatpickrInstance; // Variable to store flatpickr instance
 
-    // Display current date
+    // Display the current date
     dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
 
     // Initialize Flatpickr with explicit position settings
-    flatpickr(datePicker, {
+    flatpickrInstance = flatpickr(datePicker, {
         defaultDate: today.format('YYYY-MM-DD'),
         position: 'above', // Set position to 'above' to adjust manually
         onChange: (selectedDates) => {
@@ -120,15 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Date navigation buttons functionality
-    prevDayButton.addEventListener('click', () => {
-        today = today.subtract(1, 'days');
+    const updateDateAndFetchData = (daysToAdd) => {
+        today = today.add(daysToAdd, 'days');
         dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
+        flatpickrInstance.setDate(today.format('YYYY-MM-DD'), true); // Update Flatpickr date
         fetchDataAndFilter();
-    });
+    };
 
-    nextDayButton.addEventListener('click', () => {
-        today = today.add(1, 'days');
-        dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
-        fetchDataAndFilter();
-    });
+    prevDayButton.addEventListener('click', () => updateDateAndFetchData(-1));
+    nextDayButton.addEventListener('click', () => updateDateAndFetchData(1));
 });
