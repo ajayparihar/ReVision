@@ -17,7 +17,6 @@
     --tooltip-text-color: #dcdcdc; /* Light Grey */
 }
 
-
 /* Global Styles */
 body {
     font-family: Arial, sans-serif;
@@ -143,19 +142,41 @@ h1:hover::after {
 
 /* Date Display and Calendar */
 .date-container {
-    position: absolute;
+    position: fixed; /* Fixed positioning to keep it in the viewport */
     top: 20px;
     right: 20px;
     background-color: var(--secondary-bg-color);
-    padding: 0.75rem; /* Increased padding for better spacing */
+    padding: 0.75rem; /* Padding for better spacing */
     border-radius: 8px; /* More rounded corners */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow */
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    z-index: 1000; /* Ensure the date picker is above other elements */
+    gap: 10px; /* Reduced gap for better spacing */
 }
 
+/* Date Picker Adjustment */
+.flatpickr-calendar {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    left: auto !important; /* Override any left positioning */
+    transform: none !important; /* Remove any transform */
+    z-index: 1000;
+}
+
+/* Ensure the calendar doesn't overflow on smaller screens */
+@media (max-width: 480px) {
+    .flatpickr-calendar {
+        right: 5px !important;
+        top: 5px !important;
+    }
+}
+
+
+/* Date Display */
 .date-display {
     font-size: 1.25rem; /* Slightly larger font size */
     margin: 0;
@@ -177,13 +198,13 @@ h1:hover::after {
 .date-display::after {
     content: 'Choose date'; /* Tooltip text */
     position: absolute;
-    bottom: -35px; /* Increased space for better visibility */
+    bottom: -35px; /* Space for tooltip */
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--tooltip-bg-color);
     color: var(--tooltip-text-color);
-    padding: 0.5rem 1rem; /* Increased padding for better readability */
-    border-radius: 6px; /* Slightly more rounded corners */
+    padding: 0.5rem 1rem; /* Padding for tooltip */
+    border-radius: 6px;
     font-size: 0.875rem;
     white-space: nowrap;
     opacity: 0;
@@ -227,7 +248,8 @@ h1:hover::after {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 10px; /* Added margin to separate from date display */
+    margin-top: 0; /* No additional margin */
+    gap: 6px; /* Space between buttons */
 }
 
 /* Responsive Adjustments */
@@ -268,6 +290,7 @@ h1:hover::after {
     .date-container {
         position: static;
         margin-bottom: 20px; /* Add margin to separate from other content */
+        gap: 10px; /* Increase gap for mobile screens */
     }
 
     .date-display {
@@ -280,10 +303,6 @@ h1:hover::after {
 
     h1 {
         font-size: 2.5rem; /* Increased font size for header below the date */
-        margin-top: 10px;
-    }
-
-    .nav-button {
-        padding: 0.5rem 1rem; /* Adjusted padding for smaller screens */
+        margin-top: 20px; /* Margin to separate from other elements */
     }
 }
