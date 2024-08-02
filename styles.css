@@ -73,6 +73,13 @@ h1::after {
     transition: opacity 0.3s, visibility 0.3s;
 }
 
+/* Remove header tooltip on mobile devices */
+@media (max-width: 480px) {
+    h1::after {
+        display: none;
+    }
+}
+
 h1:hover::after {
     opacity: 1;
     visibility: visible;
@@ -167,14 +174,12 @@ h1:hover::after {
     z-index: 1000;
 }
 
-/* Ensure the calendar doesn't overflow on smaller screens */
+/* Hide the calendar on mobile devices */
 @media (max-width: 480px) {
     .flatpickr-calendar {
-        right: 5px !important;
-        top: 5px !important;
+        display: none !important;
     }
 }
-
 
 /* Date Display */
 .date-display {
@@ -193,6 +198,18 @@ h1:hover::after {
 .date-display:hover {
     color: var(--highlight-color);
     transform: scale(1.05);
+}
+
+/* Remove hover effect and tooltip on mobile devices */
+@media (max-width: 480px) {
+    .date-display:hover {
+        color: var(--text-color); /* Reset color to default */
+        transform: none; /* Remove scaling effect */
+    }
+
+    .date-display::after {
+        display: none; /* Hide tooltip */
+    }
 }
 
 .date-display::after {
