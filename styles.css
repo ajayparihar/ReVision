@@ -1,8 +1,8 @@
 /* 
   Author: Ajay Singh
-  Version: 1.4
-  Date: 11-08-2024
-  Description: Combined styles for global elements, data table, and navigation buttons.
+  Version: 2.7
+  Date: 11-07-2024
+  Description: Further improved responsiveness for all elements.
 */
 
 /* Grey & Yellow Theme */
@@ -15,10 +15,23 @@
     --row-hover-bg-color: #484848; /* Dark Grey */
     --tooltip-bg-color: #3d3d3d; /* Medium Dark Grey */
     --tooltip-text-color: #dcdcdc; /* Light Grey */
-  }
-  
-  /* Global Styles */
-  body {
+    --header-font-size: 3rem;
+    --header-hover-font-size: 2.75rem;
+    --header-small-font-size: 2.25rem;
+    --container-width: 60%;
+    --container-padding: 1.5rem;
+    --input-padding: 0.75rem;
+    --button-padding: 0.75rem 1.25rem;
+    --button-font-size: 1rem;
+    --date-font-size: 1.25rem;
+    --date-small-font-size: 0.875rem;
+    --border-radius: 8px;
+    --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Global Styles */
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -30,16 +43,16 @@
     align-items: center;
     height: 100vh;
     overflow: hidden;
-  }
-  
-  /* Header */
-  header {
+}
+
+/* Header */
+header {
     text-align: center;
     margin-bottom: 20px;
-  }
-  
-  h1 {
-    font-size: 3rem; /* Increased font size */
+}
+
+h1 {
+    font-size: var(--header-font-size);
     margin: 0;
     cursor: pointer;
     font-weight: bold;
@@ -48,282 +61,269 @@
     letter-spacing: 2px;
     transition: color 0.3s ease, transform 0.3s ease;
     position: relative;
-  }
-  
-  /* Header Hover Effect */
-  h1:hover {
+}
+
+h1:hover {
     color: var(--highlight-color);
     transform: scale(1.05);
-  }
-  
-  h1::after {
-    content: 'Refresh'; /* Tooltip text */
+}
+
+h1::after {
+    content: 'Refresh';
     position: absolute;
-    bottom: -35px; /* Increased space for better visibility */
+    bottom: -35px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--tooltip-bg-color);
     color: var(--tooltip-text-color);
-    padding: 0.5rem 1rem; /* Increased padding for better readability */
-    border-radius: 6px; /* Slightly more rounded corners */
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
     font-size: 0.875rem;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
-  }
-  
-  /* Remove header tooltip on mobile devices */
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
     h1::after {
-      display: none;
+        display: none;
     }
-  }
-  
-  h1:hover::after {
+}
+
+h1:hover::after {
     opacity: 1;
     visibility: visible;
-  }
-  
-  /* Date Display */
-  .date-display {
-    font-size: 1.25rem; /* Slightly larger font size */
-    margin: 0;
-    cursor: pointer;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    color: var(--text-color);
-    letter-spacing: 2px;
-    transition: color 0.3s ease, transform 0.3s ease;
-    position: relative;
-    word-wrap: break-word; /* Enable word wrapping */
-  }
-  
-  .date-display:hover {
-    color: var(--highlight-color);
-    transform: scale(1.05);
-  }
-  
-  /* Remove hover effect and tooltip on mobile devices */
-  @media (max-width: 480px) {
-    .date-display:hover {
-      color: var(--text-color); /* Reset color to default */
-      transform: none; /* Remove scaling effect */
-    }
-  
-    .date-display::after {
-      display: none; /* Hide tooltip */
-    }
-  }
-  
-  .date-display::after {
-    content: 'Choose date'; /* Tooltip text */
-    position: absolute;
-    bottom: -35px; /* Space for tooltip */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--tooltip-bg-color);
-    color: var(--tooltip-text-color);
-    padding: 0.5rem 1rem; /* Padding for tooltip */
-    border-radius: 6px;
-    font-size: 0.875rem;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-  }
-  
-  .date-display:hover::after {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  /* Date Container */
-  .date-container {
-    position: fixed; /* Fixed positioning to keep it in the viewport */
-    top: 20px;
-    right: 20px;
-    background-color: var(--secondary-bg-color);
-    padding: 0.75rem; /* Padding for better spacing */
-    border-radius: 8px; /* More rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    z-index: 1000; /* Ensure the date picker is above other elements */
-    gap: 10px; /* Reduced gap for better spacing */
-  }
-  
-  /* Date Picker Adjustment */
-  .flatpickr-calendar {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    left: auto !important; /* Override any left positioning */
-    transform: none !important; /* Remove any transform */
-    z-index: 1000;
-  }
-  
-  /* Hide the calendar on mobile devices */
-  @media (max-width: 480px) {
-    .flatpickr-calendar {
-      display: none !important;
-    }
-  }
-  
-  /* Main Container */
-  #dataTableContainer {
-    width: 60%; /* Slightly wider for better layout */
+}
+
+/* Main Container */
+#dataTableContainer {
+    width: var(--container-width);
     max-width: 100%;
     background-color: var(--secondary-bg-color);
-    padding: 1.5rem; /* Increased padding for better spacing */
-    border-radius: 12px; /* More rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow */
+    padding: var(--container-padding);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
     margin-bottom: 20px;
     box-sizing: border-box;
     overflow-x: auto;
-  }
-  
-  /* Search Bar */
-  #searchInput {
+}
+
+/* Search Bar */
+#searchInput {
     margin: 10px 0;
-    padding: 0.75rem; /* Increased padding for easier interaction */
+    padding: var(--input-padding);
     border: 1px solid var(--border-color);
-    border-radius: 8px; /* More rounded corners */
+    border-radius: var(--border-radius);
     width: 100%;
     background-color: var(--secondary-bg-color);
     color: var(--text-color);
     box-sizing: border-box;
-  }
-  
-  /* Data Table */
-  #dataTable {
+}
+
+/* Data Table */
+#dataTable {
     width: 100%;
     border-collapse: collapse;
     min-width: 600px;
     box-sizing: border-box;
-  }
-  
-  #dataTable th, #dataTable td {
-    padding: 0.75rem; /* Increased padding for better readability */
+}
+
+#dataTable th, #dataTable td {
+    padding: var(--input-padding);
     text-align: left;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-color);
-  }
-  
-  #dataTable th {
+}
+
+#dataTable th {
     cursor: pointer;
     font-weight: bold;
-  }
-  
-  /* Program Name Highlight */
-  #dataTable td.program-name {
-    color: var(--highlight-color); /* Yellow for program names */
-    font-weight: bold; /* Bold for emphasis */
-  }
-  
-  /* Table Row Hover Effect */
-  #dataTable tr:hover {
+}
+
+#dataTable td.program-name {
+    color: var(--highlight-color);
+    font-weight: bold;
+}
+
+#dataTable tr:hover {
     background-color: var(--row-hover-bg-color);
-  }
-  
-  /* Highlighting for search results */
-  .highlight {
-    background-color: var(--highlight-color); /* Background color for highlighting */
-    color: var(--primary-bg-color); /* Text color to contrast with the background */
-    font-weight: bold; /* Make the highlighted text bold */
-    padding: 0; /* Ensure no extra padding */
-    border-radius: 4px; /* Border-radius to match other elements */
-  }
-  
-  /* Navigation Buttons */
-  .nav-button {
+}
+
+/* Highlight */
+.highlight {
+    background-color: var(--highlight-color);
+    color: var(--primary-bg-color);
+}
+
+/* Date Display and Calendar */
+.date-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--secondary-bg-color);
+    padding: var(--input-padding);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 1000;
+    gap: 8px;
+}
+
+.flatpickr-calendar {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 1000;
+}
+
+@media (max-width: 480px) {
+    .flatpickr-calendar {
+        display: none !important;
+    }
+
+    .date-container {
+        position: static;
+        margin-bottom: 20px;
+        gap: 6px;
+    }
+}
+
+.date-display {
+    font-size: var(--date-font-size);
+    margin: 0;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
+    letter-spacing: 2px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+}
+
+.date-display:hover {
+    color: var(--highlight-color);
+    transform: scale(1.05);
+}
+
+.date-display::after {
+    content: 'Choose date';
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--tooltip-bg-color);
+    color: var(--tooltip-text-color);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+@media (max-width: 480px) {
+    .date-display {
+        font-size: var(--date-small-font-size);
+    }
+
+    .date-display::after {
+        display: none;
+    }
+}
+
+.date-display:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Navigation Buttons */
+.nav-button {
     background-color: var(--secondary-bg-color);
     color: var(--text-color);
     border: none;
-    padding: 0.75rem 1.25rem; /* Increased padding for better interaction */
-    margin: 6px; /* Consistent margin */
+    padding: var(--button-padding);
+    margin: 6px;
     cursor: pointer;
-    border-radius: 8px; /* More rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s, transform 0.3s ease;
-    font-size: 1rem; /* Slightly larger font size */
-  }
-  
-  .nav-button:hover {
-    background-color: var(--highlight-color); /* Yellow background on hover */
-    color: var(--primary-bg-color); /* Dark Grey text on hover */
+    font-size: var(--button-font-size);
+}
+
+.nav-button:hover {
+    background-color: var(--highlight-color);
+    color: var(--primary-bg-color);
     transform: scale(1.05);
-  }
-  
-  .nav-button:focus {
+}
+
+.nav-button:focus {
     outline: none;
     box-shadow: 0 0 10px var(--highlight-color);
-  }
-  
-  /* Align buttons horizontally */
-  .date-buttons {
+}
+
+/* Align buttons horizontally */
+.date-buttons {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 0; /* No additional margin */
-    gap: 6px; /* Space between buttons */
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
+    margin-top: 0;
+    gap: 6px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
     #dataTableContainer {
-      width: 80%;
+        width: 80%;
     }
-  
+
     #dataTable {
-      min-width: 0;
+        min-width: 0;
     }
-  
+
     h1 {
-      font-size: 2.75rem; /* Adjusted for medium screens */
+        font-size: var(--header-hover-font-size);
     }
-  }
-  
-  @media (min-width: 1024px) {
+}
+
+@media (min-width: 1024px) {
     h1 {
-      font-size: 3.5rem; /* Larger font size for large screens */
+        font-size: 3.5rem;
     }
-  }
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
     #dataTableContainer {
-      width: 90%;
-      padding: 0.5rem;
+        width: 90%;
+        padding: 0.5rem;
     }
-  
+
     #searchInput {
-      padding: 0.5rem;
+        padding: 0.5rem;
     }
-  
+
     h1 {
-      font-size: 2.25rem; /* Adjusted for small screens */
+        font-size: var(--header-small-font-size);
+        margin-top: 20px;
     }
-  
+
     .date-container {
-      position: static;
-      margin-bottom: 20px; /* Add margin to separate from other content */
-      gap: 10px; /* Increase gap for mobile screens */
+        margin-bottom: 20px;
+        gap: 6px;
     }
-  
+
     .date-display {
-      font-size: 0.75rem; /* Reduced font size for mobile screens */
+        font-size: var(--date-small-font-size);
     }
-  
+
     header {
-      margin-top: 10px; /* Add margin to top for spacing */
+        margin-top: 10px;
     }
-  
-    h1 {
-      font-size: 2.5rem; /* Increased font size for header below the date */
-      margin-top: 20px; /* Margin to separate from other elements */
-    }
-  }
-  
+}
