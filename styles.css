@@ -1,8 +1,8 @@
 /* 
   Author: Ajay Singh
-  Version: 2.7
+  Version: 2.12
   Date: 11-07-2024
-  Description: Further improved responsiveness for all elements.
+  Description: Enhanced visuals with refined styling, improved readability, and modern aesthetics.
 */
 
 /* Grey & Yellow Theme */
@@ -15,19 +15,22 @@
     --row-hover-bg-color: #484848; /* Dark Grey */
     --tooltip-bg-color: #3d3d3d; /* Medium Dark Grey */
     --tooltip-text-color: #dcdcdc; /* Light Grey */
-    --header-font-size: 3rem;
+    --header-font-size: 3rem; /* Base size for larger screens */
     --header-hover-font-size: 2.75rem;
     --header-small-font-size: 2.25rem;
-    --container-width: 60%;
+    --container-width-lg: 60%; /* Large screens */
+    --container-width-md: 80%; /* Medium screens */
+    --container-width-sm: 90%; /* Small screens */
     --container-padding: 1.5rem;
     --input-padding: 0.75rem;
     --button-padding: 0.75rem 1.25rem;
     --button-font-size: 1rem;
     --date-font-size: 1.25rem;
-    --date-small-font-size: 0.875rem;
-    --border-radius: 8px;
+    --date-small-font-size: 0.75rem;
+    --border-radius: 12px;
     --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.3);
-    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.5);
+    --transition-speed: 0.3s;
 }
 
 /* Global Styles */
@@ -59,7 +62,7 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     color: var(--text-color);
     letter-spacing: 2px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
     position: relative;
 }
 
@@ -71,18 +74,18 @@ h1:hover {
 h1::after {
     content: 'Refresh';
     position: absolute;
-    bottom: -35px;
+    bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--tooltip-bg-color);
     color: var(--tooltip-text-color);
     padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
+    border-radius: 6px;
     font-size: 0.875rem;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+    transition: opacity var(--transition-speed), visibility var(--transition-speed);
 }
 
 @media (max-width: 480px) {
@@ -98,7 +101,7 @@ h1:hover::after {
 
 /* Main Container */
 #dataTableContainer {
-    width: var(--container-width);
+    width: var(--container-width-lg);
     max-width: 100%;
     background-color: var(--secondary-bg-color);
     padding: var(--container-padding);
@@ -107,6 +110,7 @@ h1:hover::after {
     margin-bottom: 20px;
     box-sizing: border-box;
     overflow-x: auto;
+    border: 1px solid var(--border-color); /* Border for clarity */
 }
 
 /* Search Bar */
@@ -119,6 +123,12 @@ h1:hover::after {
     background-color: var(--secondary-bg-color);
     color: var(--text-color);
     box-sizing: border-box;
+    transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+
+#searchInput:focus {
+    border-color: var(--highlight-color);
+    background-color: var(--primary-bg-color);
 }
 
 /* Data Table */
@@ -139,6 +149,7 @@ h1:hover::after {
 #dataTable th {
     cursor: pointer;
     font-weight: bold;
+    background-color: var(--secondary-bg-color);
 }
 
 #dataTable td.program-name {
@@ -170,7 +181,8 @@ h1:hover::after {
     align-items: center;
     box-sizing: border-box;
     z-index: 1000;
-    gap: 8px;
+    gap: 10px;
+    border: 1px solid var(--border-color); /* Border for clarity */
 }
 
 .flatpickr-calendar {
@@ -190,7 +202,7 @@ h1:hover::after {
     .date-container {
         position: static;
         margin-bottom: 20px;
-        gap: 6px;
+        gap: 10px;
     }
 }
 
@@ -202,7 +214,7 @@ h1:hover::after {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     color: var(--text-color);
     letter-spacing: 2px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
     position: relative;
 }
 
@@ -214,28 +226,18 @@ h1:hover::after {
 .date-display::after {
     content: 'Choose date';
     position: absolute;
-    bottom: -35px;
+    bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--tooltip-bg-color);
     color: var(--tooltip-text-color);
     padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
+    border-radius: 6px;
     font-size: 0.875rem;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-}
-
-@media (max-width: 480px) {
-    .date-display {
-        font-size: var(--date-small-font-size);
-    }
-
-    .date-display::after {
-        display: none;
-    }
+    transition: opacity var(--transition-speed), visibility var(--transition-speed);
 }
 
 .date-display:hover::after {
@@ -254,7 +256,7 @@ h1:hover::after {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
     font-weight: bold;
-    transition: background-color 0.3s, color 0.3s, transform 0.3s ease;
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
     font-size: var(--button-font-size);
 }
 
@@ -281,7 +283,7 @@ h1:hover::after {
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     #dataTableContainer {
-        width: 80%;
+        width: var(--container-width-md);
     }
 
     #dataTable {
@@ -295,13 +297,13 @@ h1:hover::after {
 
 @media (min-width: 1024px) {
     h1 {
-        font-size: 3.5rem;
+        font-size: var(--header-font-size);
     }
 }
 
 @media (max-width: 480px) {
     #dataTableContainer {
-        width: 90%;
+        width: var(--container-width-sm);
         padding: 0.5rem;
     }
 
@@ -311,12 +313,12 @@ h1:hover::after {
 
     h1 {
         font-size: var(--header-small-font-size);
-        margin-top: 20px;
     }
 
     .date-container {
+        position: static;
         margin-bottom: 20px;
-        gap: 6px;
+        gap: 10px;
     }
 
     .date-display {
@@ -325,5 +327,10 @@ h1:hover::after {
 
     header {
         margin-top: 10px;
+    }
+
+    h1 {
+        font-size: var(--header-small-font-size);
+        margin-top: 20px;
     }
 }
