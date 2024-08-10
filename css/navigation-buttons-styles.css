@@ -1,0 +1,41 @@
+/* 
+  Author: Ajay Singh
+  Version: 1.4
+  Date: 11-08-2024
+  Description: Styles for navigation buttons, including background, hover effects, and layout.
+*/
+
+/* Navigation Buttons */
+.nav-button {
+    background-color: var(--secondary-bg-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.75rem 1.25rem; /* Increased padding for better interaction */
+    margin: 6px; /* Consistent margin */
+    cursor: pointer;
+    border-radius: 8px; /* More rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow */
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s ease;
+    font-size: 1rem; /* Slightly larger font size */
+}
+
+.nav-button:hover {
+    background-color: var(--highlight-color); /* Yellow background on hover */
+    color: var(--primary-bg-color); /* Dark Grey text on hover */
+    transform: scale(1.05);
+}
+
+.nav-button:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--highlight-color);
+}
+
+/* Align buttons horizontally */
+.date-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0; /* No additional margin */
+    gap: 6px; /* Space between buttons */
+}

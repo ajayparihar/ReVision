@@ -7,9 +7,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ReVision - A web application for managing and reviewing programs.">
     <title>ReVision</title>
 
     <!-- Icons and Manifest -->
@@ -19,9 +21,17 @@
     <link rel="manifest" href="favicon_io/site.webmanifest">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/global-styles.css">
+    <link rel="stylesheet" href="css/header-styles.css">
+    <link rel="stylesheet" href="css/main-container-styles.css">
+    <link rel="stylesheet" href="css/search-bar-styles.css">
+    <link rel="stylesheet" href="css/data-table-styles.css">
+    <link rel="stylesheet" href="css/date-display-calendar-styles.css">
+    <link rel="stylesheet" href="css/navigation-buttons-styles.css">
+    <link rel="stylesheet" href="css/responsive-styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
+
 <body>
     <!-- Header Section -->
     <header>
@@ -30,7 +40,8 @@
 
     <!-- Data Table Container -->
     <div id="dataTableContainer">
-        <input type="text" id="searchInput" class="search-bar" placeholder="Search..." autofocus>
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search..." autofocus
+            aria-label="Search Input">
         <table id="dataTable">
             <thead>
                 <tr>
@@ -48,10 +59,10 @@
     <!-- Date Picker and Navigation -->
     <div class="date-container">
         <p id="dateDisplay" class="date-display"></p>
-        <input type="text" id="datePicker" style="display:none;">
+        <input type="text" id="datePicker" style="display:none;" aria-label="Date Picker">
         <div class="date-buttons">
-            <button id="prevDay" class="nav-button">&lt;</button>
-            <button id="nextDay" class="nav-button">&gt;</button>
+            <button id="prevDay" class="nav-button" aria-label="Previous Day">&lt;</button>
+            <button id="nextDay" class="nav-button" aria-label="Next Day">&gt;</button>
         </div>
     </div>
 
@@ -60,4 +71,5 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,33 @@
+/* 
+  Author: Ajay Singh
+  Version: 1.4
+  Date: 11-08-2024
+  Description: Global styles for general elements, including body and common layout properties.
+*/
+
+/* Grey & Yellow Theme */
+:root {
+  --primary-bg-color: #2d2d2d; /* Dark Grey */
+  --secondary-bg-color: #3d3d3d; /* Medium Dark Grey */
+  --highlight-color: #f4c727; /* Bright Yellow */
+  --text-color: #dcdcdc; /* Light Grey */
+  --border-color: #646464; /* Grey */
+  --row-hover-bg-color: #484848; /* Dark Grey */
+  --tooltip-bg-color: #3d3d3d; /* Medium Dark Grey */
+  --tooltip-text-color: #dcdcdc; /* Light Grey */
+}
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}

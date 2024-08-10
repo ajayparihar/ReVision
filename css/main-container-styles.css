@@ -1,0 +1,19 @@
+/* 
+  Author: Ajay Singh
+  Version: 1.3
+  Date: 01-07-2024
+  Description: Styles for main container, including padding, border radius, and box shadow.
+*/
+
+/* Main Container */
+#dataTableContainer {
+  width: 60%; /* Slightly wider for better layout */
+  max-width: 100%;
+  background-color: var(--secondary-bg-color);
+  padding: 1.5rem; /* Increased padding for better spacing */
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow */
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  overflow-x: auto;
+}

@@ -1,0 +1,61 @@
+/* 
+  Author: Ajay Singh
+  Version: 1.4
+  Date: 11-08-2024
+  Description: Responsive styles for various screen sizes.
+*/
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #dataTableContainer {
+        width: 80%;
+    }
+
+    #dataTable {
+        min-width: 0;
+    }
+
+    h1 {
+        font-size: 2.75rem; /* Adjusted for medium screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 3.5rem; /* Larger font size for large screens */
+    }
+}
+
+@media (max-width: 480px) {
+    #dataTableContainer {
+        width: 90%;
+        padding: 0.5rem;
+    }
+
+    #searchInput {
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 2.25rem; /* Adjusted for small screens */
+    }
+
+    .date-container {
+        position: static;
+        margin-bottom: 20px; /* Add margin to separate from other content */
+        gap: 10px; /* Increase gap for mobile screens */
+    }
+
+    .date-display {
+        font-size: 0.75rem; /* Reduced font size for mobile screens */
+    }
+
+    header {
+        margin-top: 10px; /* Add margin to top for spacing */
+    }
+
+    h1 {
+        font-size: 2.5rem; /* Increased font size for header below the date */
+        margin-top: 20px; /* Margin to separate from other elements */
+    }
+}

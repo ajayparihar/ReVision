@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Variables
     let today = moment(); // Current date using moment.js
     let flatpickrInstance; // Variable to store flatpickr instance
+    let allRows = []; // Store all rows fetched from CSV
+    let displayedRows = []; // Store currently displayed rows for searching
+    let isFetching = false; // Prevent overlapping fetch requests
+    const DEBOUNCE_DELAY = 300; // Debounce delay for search input
 
     // Display the current date
     dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
@@ -30,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         onChange: (selectedDates) => {
             today = moment(selectedDates[0]); // Update today's date
             dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
-            fetchDataAndFilter(); // Update the data display
+            filterAndDisplayRows(); // Update the data display based on the new date
         }
     });
 
@@ -42,60 +46,87 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to handle link click events
     const handleLinkClick = (event, url) => {
-        if (url && (event.button === 0 || event.button === 1)) {
-            window.open(url.trim(), '_blank');
+        if (url && url.trim() && (event.button === 0 || event.button === 1)) {
+            const trimmedUrl = url.trim();
+            if (trimmedUrl) {
+                window.open(trimmedUrl, '_blank');
+            }
         }
     };
 
-    // Fetch and display data from CSV
+    // Fetch and filter data from CSV
     const fetchDataAndFilter = async () => {
+        if (isFetching) return; // Prevent overlapping fetch requests
+        isFetching = true;
+
         try {
             const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRHb7zCNZEfozeuEwtKafE3U_himTnip925rNWnM6F4dZi6ZdVJ3n9Rlwnx26ur2iGxRfeRR5gyr8cJ/pub?gid=0&single=true&output=csv');
             if (!response.ok) throw new Error('Network response was not ok');
             const csv = await response.text();
-            const rows = csv.split('\n').map(row => row.trim()).filter(row => row); // Remove empty rows
-            tableBody.innerHTML = ''; // Clear existing data
-
-            // Filter programs scheduled for review after specified intervals
-            const filteredRows = rows.filter(row => {
+            const rows = csv.split('\n').map(row => row.trim()).filter(row => {
+                // Ensure the row has the expected number of columns
                 const cols = row.split(',');
-                const programDate = moment(cols[1], 'DD-MM-YYYY'); // Parse date using moment.js
-                return programDate.isSame(today.clone().subtract(1, 'days'), 'day') ||
-                       programDate.isSame(today.clone().subtract(15, 'days'), 'day') ||
-                       programDate.isSame(today.clone().subtract(1, 'weeks'), 'day') ||
-                       programDate.isSame(today.clone().subtract(1, 'months'), 'day') ||
-                       programDate.isSame(today.clone().subtract(1, 'years'), 'day');
+                return cols.length === 4 && cols[1]; // Ensure the date column (cols[1]) is not empty
             });
-
-            if (filteredRows.length > 0) {
-                filteredRows.forEach(row => {
-                    const cols = row.split(',');
-                    const tr = document.createElement('tr');
-
-                    const createTableCell = (content, className) => {
-                        const cell = document.createElement('td');
-                        cell.textContent = content;
-                        if (className) {
-                            cell.classList.add(className);
-                        }
-                        return cell;
-                    };
-
-                    const programNameCell = createTableCell(cols[0], 'program-name');
-                    programNameCell.style.cursor = 'pointer';
-                    programNameCell.addEventListener('mousedown', (event) => handleLinkClick(event, cols[3]));
-                    tr.appendChild(programNameCell);
-
-                    tr.appendChild(createTableCell(cols[1]));
-                    tr.appendChild(createTableCell(cols[2]));
-
-                    tableBody.appendChild(tr);
-                });
-            } else {
-                tableBody.innerHTML = '<tr><td colspan="3">Nothing to revise today. Enjoy your day!</td></tr>';
-            }
+            allRows = rows;
+            filterAndDisplayRows(); // Filter and display rows based on the current date
         } catch (error) {
             console.error('Error fetching CSV file:', error);
+            tableBody.innerHTML = '<tr><td colspan="3">Nothing to revise today. Enjoy your day!</td></tr>';
+        } finally {
+            isFetching = false;
+        }
+    };
+
+    // Filter rows based on the current date
+    const filterAndDisplayRows = () => {
+        displayedRows = allRows.filter(row => {
+            const cols = row.split(',');
+            const programDate = moment(cols[1], 'DD-MM-YYYY', true); // 'true' for strict parsing
+            return programDate.isValid() &&
+                   (programDate.isSame(today.clone().subtract(1, 'days'), 'day') ||
+                    programDate.isSame(today.clone().subtract(15, 'days'), 'day') ||
+                    programDate.isSame(today.clone().subtract(1, 'weeks'), 'day') ||
+                    programDate.isSame(today.clone().subtract(1, 'months'), 'day') ||
+                    programDate.isSame(today.clone().subtract(1, 'years'), 'day'));
+        });
+        displayRows(displayedRows); // Display the rows filtered by date
+    };
+
+    // Highlight search matches
+    const highlightText = (text, searchText) => {
+        const pattern = new RegExp(`(${searchText})`, 'gi'); // Match searchText globally and case-insensitive
+        return text.replace(pattern, '<span class="highlight">$1</span>');
+    };
+
+    // Display rows in the table
+    const displayRows = (rows) => {
+        tableBody.innerHTML = ''; // Clear existing data
+        if (rows.length > 0) {
+            rows.forEach(row => {
+                const cols = row.split(',');
+                const tr = document.createElement('tr');
+
+                const createTableCell = (content, className) => {
+                    const cell = document.createElement('td');
+                    cell.innerHTML = content; // Use innerHTML to handle highlighted content
+                    if (className) {
+                        cell.classList.add(className);
+                    }
+                    return cell;
+                };
+
+                const programNameCell = createTableCell(highlightText(cols[0], searchInput.value.trim().toLowerCase()), 'program-name');
+                programNameCell.style.cursor = 'pointer';
+                programNameCell.addEventListener('mousedown', (event) => handleLinkClick(event, cols[3]));
+                tr.appendChild(programNameCell);
+
+                tr.appendChild(createTableCell(highlightText(cols[1], searchInput.value.trim().toLowerCase())));
+                tr.appendChild(createTableCell(highlightText(cols[2], searchInput.value.trim().toLowerCase())));
+
+                tableBody.appendChild(tr);
+            });
+        } else {
             tableBody.innerHTML = '<tr><td colspan="3">Nothing to revise today. Enjoy your day!</td></tr>';
         }
     };
@@ -109,23 +140,23 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(() => {
             const searchText = searchInput.value.trim().toLowerCase();
-            const rows = Array.from(tableBody.children);
-            rows.forEach(tr => {
-                let rowMatch = false; // Flag to track if any cell in the row matches
-                for (let i = 0; i < 3; i++) {
-                    const td = tr.children[i];
-                    const col = td.textContent.trim();
-                    if (col.toLowerCase().includes(searchText)) {
-                        rowMatch = true; // Set flag to true if any cell matches
-                        const pattern = new RegExp(searchText, 'gi'); // 'gi' for global and case-insensitive match
-                        td.innerHTML = col.replace(pattern, match => `<span class="highlight">${match}</span>`);
-                    } else {
-                        td.innerHTML = col; // Reset original text if no match
-                    }
-                }
-                tr.style.display = rowMatch ? '' : 'none'; // Show or hide row based on match
+            if (searchText.length === 0) {
+                // When the search input is cleared, display rows based on the current date filter
+                filterAndDisplayRows();
+                return;
+            }
+
+            const rows = displayedRows.filter(row => {
+                const cols = row.split(',');
+                return cols.some(col => col.toLowerCase().includes(searchText));
             });
-        }, 300); // Debounce delay
+
+            if (rows.length > 0) {
+                displayRows(rows);
+            } else {
+                tableBody.innerHTML = '<tr><td colspan="3">No matching records found.</td></tr>';
+            }
+        }, DEBOUNCE_DELAY); // Debounce delay
     });
 
     // Date navigation buttons functionality
@@ -133,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         today = today.add(daysToAdd, 'days');
         dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
         flatpickrInstance.setDate(today.format('YYYY-MM-DD'), true); // Update Flatpickr date
-        fetchDataAndFilter();
+        filterAndDisplayRows(); // Filter and display rows based on the updated date
     };
 
     prevDayButton.addEventListener('click', () => updateDateAndFetchData(-1));
