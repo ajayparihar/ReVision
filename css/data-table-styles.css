@@ -37,7 +37,7 @@
     color: var(--primary-bg-color); /* Text color to contrast with the background */
     font-weight: bold; /* Make the highlighted text bold */
     padding: 0; /* Ensure no extra padding */
-    border-radius: 4px; /* 4-pixel border-radius for rounded corners */
+    border-radius: 4px; /* Rounded corners */
 }
 
 /* Table Row Hover Effect */
