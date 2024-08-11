@@ -1,3 +1,10 @@
+/* 
+  Author: Ajay Singh
+  Version: 1.4
+  Date: 11-08-2024
+  Description: Styles the layout with a grey and yellow theme, adjusts container and element sizes for responsiveness, and includes hover effects and accessibility enhancements.
+*/
+
 /* Grey & Yellow Theme */
 :root {
     --primary-bg-color: #1a1a1a;
@@ -9,7 +16,7 @@
     --tooltip-bg-color: #2c2c2c;
     --tooltip-text-color: #e0e0e0;
     --header-font-size: 2.5rem;
-    --header-hover-font-size: 2.25rem;
+    --header-hover-font-size: 2.75rem;
     --header-small-font-size: 1.75rem;
     --container-width-lg: 60%;
     --container-width-md: 75%;
@@ -29,6 +36,12 @@
 }
 
 /* Global Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -56,7 +69,7 @@ h1 {
     font-weight: 700;
     color: var(--text-color);
     letter-spacing: 1px;
-    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed);
+    transition: var(--transition-speed);
     position: relative;
     text-transform: uppercase;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -66,6 +79,7 @@ h1:hover {
     color: var(--highlight-color);
     transform: scale(1.05);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-size: var(--header-hover-font-size);
 }
 
 h1::after {
@@ -82,7 +96,7 @@ h1::after {
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: opacity var(--transition-speed), visibility var(--transition-speed);
+    transition: var(--transition-speed);
 }
 
 @media (max-width: 480px) {
@@ -105,12 +119,32 @@ h1:hover::after {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-medium);
     margin-bottom: var(--bottom-margin);
-    box-sizing: border-box;
-    overflow-x: auto;
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments for dataTableContainer */
+@media (max-width: 1024px) {
+    #dataTableContainer {
+        width: var(--container-width-md);
+    }
+}
+
+@media (max-width: 768px) {
+    #dataTableContainer {
+        width: var(--container-width-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    #dataTableContainer {
+        width: var(--container-width-sm);
+        padding: 0.75rem;
+        box-shadow: none;
+    }
 }
 
 /* Search Bar */
@@ -123,7 +157,7 @@ h1:hover::after {
     background-color: var(--secondary-bg-color);
     color: var(--text-color);
     box-sizing: border-box;
-    transition: border-color var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed);
+    transition: var(--transition-speed);
 }
 
 #searchInput:focus {
@@ -146,7 +180,7 @@ h1:hover::after {
     color: var(--text-color);
     white-space: nowrap;
     overflow: hidden;
-    transition: background-color var(--transition-speed);
+    transition: var(--transition-speed);
 }
 
 #dataTable th {
@@ -175,7 +209,6 @@ h1:hover::after {
 /* Table Row Hover Effect */
 #dataTable tr:hover {
     background-color: var(--row-hover-bg-color);
-    transition: background-color var(--transition-speed);
 }
 
 /* Highlight */
@@ -206,6 +239,32 @@ h1:hover::after {
     border: 1px solid var(--border-color);
 }
 
+/* Responsive adjustments for date-container */
+@media (max-width: 1024px) {
+    .date-container {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .date-container {
+        top: 5px;
+        right: 5px;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .date-container {
+        position: static;
+        margin: 0 auto 20px auto;
+        max-width: var(--container-width-sm);
+        width: auto;
+        padding: 0.75rem;
+    }
+}
+
 .date-container > * {
     width: 100%;
     text-align: center;
@@ -222,31 +281,16 @@ h1:hover::after {
     z-index: 1000;
 }
 
-
 @media (max-width: 768px) {
     .flatpickr-calendar {
         top: 10px;
         right: 10px;
-    }
-
-    .date-container {
-        position: static;
-        margin: 0 auto 20px auto;
-        max-width: var(--container-width-md);
-        width: auto;
     }
 }
 
 @media (max-width: 480px) {
     .flatpickr-calendar {
         display: none;
-    }
-
-    .date-container {
-        position: static;
-        margin: 0 auto 20px auto;
-        max-width: var(--container-width-sm);
-        width: auto;
     }
 }
 
@@ -257,7 +301,7 @@ h1:hover::after {
     font-weight: 700;
     color: var(--text-color);
     letter-spacing: 0.5px;
-    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed);
+    transition: var(--transition-speed);
     position: relative;
     text-transform: capitalize;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -283,7 +327,13 @@ h1:hover::after {
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: opacity var(--transition-speed), visibility var(--transition-speed);
+    transition: var(--transition-speed);
+}
+
+@media (max-width: 480px) {
+    .date-display::after {
+        display: none;
+    }
 }
 
 .date-display:hover::after {
@@ -295,7 +345,7 @@ h1:hover::after {
 .nav-button {
     background-color: var(--secondary-bg-color);
     color: var(--text-color);
-    border: none;
+    border: 1px solid var(--border-color);
     padding: var(--button-padding);
     margin: 6px;
     cursor: pointer;
