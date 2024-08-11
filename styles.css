@@ -1,352 +1,312 @@
-/* 
-  Author: Ajay Singh
-  Version: 1.4
-  Date: 11-08-2024
-  Description: Styles the layout with a grey and yellow theme, adjusts container and element sizes for responsiveness, and includes hover effects and accessibility enhancements.
-*/
-
 /* Grey & Yellow Theme */
 :root {
-    --primary-bg-color: #1a1a1a; /* Darker Grey */
-    --secondary-bg-color: #2c2c2c; /* Medium Dark Grey */
-    --highlight-color: #f4c727; /* Bright Yellow */
-    --text-color: #e0e0e0; /* Slightly lighter grey */
-    --border-color: #4a4a4a; /* Dark Grey */
-    --row-hover-bg-color: #333333; /* Even darker grey */
-    --tooltip-bg-color: #2c2c2c; /* Medium Dark Grey */
-    --tooltip-text-color: #e0e0e0; /* Slightly lighter grey */
-    --header-font-size: 2.5rem; /* Header font size */
-    --header-hover-font-size: 2.25rem; /* Header font size on hover */
-    --header-small-font-size: 1.75rem; /* Small header font size */
-    --container-width-lg: 60%; /* Large container width */
-    --container-width-md: 75%; /* Medium container width */
-    --container-width-sm: 90%; /* Small container width */
-    --container-padding: 1.5rem; /* Padding for containers */
-    --input-padding: 0.75rem; /* Padding for input fields */
-    --button-padding: 0.75rem 1.25rem; /* Padding for buttons */
-    --button-font-size: 0.9rem; /* Font size for buttons */
-    --date-font-size: 1.1rem; /* Font size for date display */
-    --date-small-font-size: 0.9rem; /* Smaller font size for date display */
-    --border-radius: 12px; /* Border radius for rounded corners */
-    --highlight-border-radius: 4px; /* Border radius for highlight */
-    --shadow-light: 0 6px 12px rgba(0, 0, 0, 0.25); /* Light shadow */
-    --shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.35); /* Medium shadow */
-    --transition-speed: 0.3s; /* Transition speed for effects */
-    --bottom-margin: 30px; /* Margin for bottom spacing */
+    --primary-bg-color: #1a1a1a;
+    --secondary-bg-color: #2c2c2c;
+    --highlight-color: #f4c727;
+    --text-color: #e0e0e0;
+    --border-color: #4a4a4a;
+    --row-hover-bg-color: #333333;
+    --tooltip-bg-color: #2c2c2c;
+    --tooltip-text-color: #e0e0e0;
+    --header-font-size: 2.5rem;
+    --header-hover-font-size: 2.25rem;
+    --header-small-font-size: 1.75rem;
+    --container-width-lg: 60%;
+    --container-width-md: 75%;
+    --container-width-sm: 90%;
+    --container-padding: 1.5rem;
+    --input-padding: 0.75rem;
+    --button-padding: 0.75rem 1.25rem;
+    --button-font-size: 0.9rem;
+    --date-font-size: 1.1rem;
+    --date-small-font-size: 0.9rem;
+    --border-radius: 12px;
+    --highlight-border-radius: 4px;
+    --shadow-light: 0 6px 12px rgba(0, 0, 0, 0.25);
+    --shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.35);
+    --transition-speed: 0.3s;
+    --bottom-margin: 30px;
 }
 
 /* Global Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font family */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    background-color: var(--primary-bg-color); /* Background color */
-    color: var(--text-color); /* Text color */
-    display: flex; /* Flexbox layout */
-    flex-direction: column; /* Vertical layout */
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
-    min-height: 100vh; /* Full viewport height */
-    overflow: auto; /* Allow scrolling if needed */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: auto;
 }
 
 /* Header */
 header {
-    text-align: center; /* Center-align header text */
-    margin-bottom: var(--bottom-margin); /* Bottom margin */
+    text-align: center;
+    margin-bottom: var(--bottom-margin);
 }
 
 h1 {
-    font-size: var(--header-font-size); /* Header font size */
-    margin: 0; /* Remove default margin */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-weight: 700; /* Bold font weight */
-    color: var(--text-color); /* Text color */
-    letter-spacing: 1px; /* Letter spacing */
-    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed); /* Transition effects */
-    position: relative; /* Position relative for pseudo-elements */
-    text-transform: uppercase; /* Uppercase text */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+    font-size: var(--header-font-size);
+    margin: 0;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: 1px;
+    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed);
+    position: relative;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 h1:hover {
-    color: var(--highlight-color); /* Text color on hover */
-    transform: scale(1.05); /* Scale up on hover */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Enhanced text shadow on hover */
+    color: var(--highlight-color);
+    transform: scale(1.05);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 h1::after {
-    content: 'Refresh'; /* Tooltip content */
-    position: absolute; /* Absolute positioning */
-    bottom: -45px; /* Position below header */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    background-color: var(--tooltip-bg-color); /* Tooltip background color */
-    color: var(--tooltip-text-color); /* Tooltip text color */
-    padding: 0.75rem; /* Padding */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 0.9rem; /* Font size */
-    white-space: nowrap; /* Prevent text wrapping */
-    opacity: 0; /* Initially hidden */
-    visibility: hidden; /* Initially hidden */
-    transition: opacity var(--transition-speed), visibility var(--transition-speed); /* Transition effects */
+    content: 'Refresh';
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--tooltip-bg-color);
+    color: var(--tooltip-text-color);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed), visibility var(--transition-speed);
 }
 
 @media (max-width: 480px) {
     h1::after {
-        display: none; /* Hide tooltip on small screens */
+        display: none;
     }
 }
 
 h1:hover::after {
-    opacity: 1; /* Show tooltip on hover */
-    visibility: visible; /* Show tooltip on hover */
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Main Container */
 #dataTableContainer {
-    width: var(--container-width-lg); /* Container width */
-    max-width: 100%; /* Full width */
-    background-color: var(--secondary-bg-color); /* Background color */
-    padding: var(--container-padding); /* Padding */
-    border-radius: var(--border-radius); /* Rounded corners */
-    box-shadow: var(--shadow-medium); /* Medium shadow */
-    margin-bottom: var(--bottom-margin); /* Bottom margin */
-    box-sizing: border-box; /* Include padding and border in width */
-    overflow-x: auto; /* Horizontal scrolling */
-    border: 1px solid var(--border-color); /* Border */
-    display: flex; /* Flexbox layout */
-    flex-direction: column; /* Vertical layout */
-    align-items: center; /* Center items horizontally */
+    width: var(--container-width-lg);
+    max-width: 100%;
+    background-color: var(--secondary-bg-color);
+    padding: var(--container-padding);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    margin-bottom: var(--bottom-margin);
+    box-sizing: border-box;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Search Bar */
 #searchInput {
-    margin: 12px 0; /* Margin for spacing */
-    padding: var(--input-padding); /* Padding */
-    border: 1px solid var(--border-color); /* Border color */
-    border-radius: var(--border-radius); /* Rounded corners */
-    width: 100%; /* Full width */
-    background-color: var(--secondary-bg-color); /* Background color */
-    color: var(--text-color); /* Text color */
-    box-sizing: border-box; /* Include padding and border in width */
-    transition: border-color var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); /* Transition effects */
+    margin: 12px 0;
+    padding: var(--input-padding);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    width: 100%;
+    background-color: var(--secondary-bg-color);
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 #searchInput:focus {
-    border-color: var(--highlight-color); /* Border color on focus */
-    background-color: var(--primary-bg-color); /* Background color on focus */
-    outline: none; /* Remove default outline */
-    box-shadow: 0 0 5px var(--highlight-color); /* Shadow effect on focus */
+    border-color: var(--highlight-color);
+    background-color: var(--primary-bg-color);
+    outline: none;
+    box-shadow: 0 0 5px var(--highlight-color);
 }
 
 /* Data Table */
 #dataTable {
-    width: 100%; /* Full width */
-    border-collapse: collapse; /* Collapse borders */
-    table-layout: auto; /* Auto layout */
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
 }
 
 #dataTable th, #dataTable td {
-    padding: var(--input-padding); /* Padding */
-    border-bottom: 1px solid var(--border-color); /* Border color */
-    color: var(--text-color); /* Text color */
-    white-space: nowrap; /* Prevent text wrapping */
-    overflow: hidden; /* Hide overflow */
-    transition: background-color var(--transition-speed); /* Transition effects */
+    padding: var(--input-padding);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-color var(--transition-speed);
 }
 
 #dataTable th {
-    text-align: left; /* Left-align text */
-    background-color: var(--secondary-bg-color); /* Background color */
-    font-weight: 700; /* Bold font weight */
-    word-wrap: break-word; /* Break words if needed */
+    text-align: left;
+    background-color: var(--secondary-bg-color);
+    font-weight: 700;
+    word-wrap: break-word;
 }
 
 #dataTable td {
-    text-align: left; /* Left-align text */
-    white-space: normal; /* Allow text wrapping */
-    word-wrap: break-word; /* Break words if needed */
+    text-align: left;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
-/* Adjusting date column specifically */
 #dataTable td.date-column {
-    max-width: 160px; /* Maximum width for date column */
+    max-width: 160px;
 }
 
 /* Program Name Highlight */
 #dataTable td.program-name {
-    color: var(--highlight-color); /* Text color */
-    font-weight: 700; /* Bold font weight */
-    /* Removed background color */
-    /* Removed border styling */
+    color: var(--highlight-color);
+    font-weight: 700;
 }
 
 /* Table Row Hover Effect */
 #dataTable tr:hover {
-    background-color: var(--row-hover-bg-color); /* Background color on hover */
-    transition: background-color var(--transition-speed); /* Transition effects */
+    background-color: var(--row-hover-bg-color);
+    transition: background-color var(--transition-speed);
 }
 
 /* Highlight */
 .highlight {
-    background-color: var(--highlight-color); /* Background color */
-    color: var(--primary-bg-color); /* Text color */
-    border-radius: var(--highlight-border-radius); /* Rounded corners for highlight */
+    background-color: var(--highlight-color);
+    color: var(--primary-bg-color);
+    border-radius: var(--highlight-border-radius);
 }
 
 /* Date Display and Calendar */
 .date-container {
-    position: fixed; /* Fixed position */
-    top: 20px; /* Top position */
-    right: 20px; /* Right position */
-    background-color: var(--secondary-bg-color); /* Background color */
-    color: var(--text-color); /* Text color */
-    padding: var(--container-padding); /* Padding */
-    border-radius: var(--border-radius); /* Rounded corners */
-    box-shadow: var(--shadow-medium); /* Medium shadow */
-    display: flex; /* Flexbox layout */
-    flex-direction: column; /* Vertical layout */
-    align-items: center; /* Center items horizontally */
-    box-sizing: border-box; /* Include padding and border in width */
-    z-index: 1000; /* Ensure it is above other elements */
-    gap: 10px; /* Gap between elements */
-    max-width: calc(100% - 40px); /* Maximum width */
-    overflow: hidden; /* Hide overflow */
-    border: 1px solid var(--border-color); /* Border color */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--secondary-bg-color);
+    color: var(--text-color);
+    padding: var(--container-padding);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 1000;
+    gap: 10px;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .date-container > * {
-    width: 100%; /* Full width */
-    text-align: center; /* Center-align text */
-    box-sizing: border-box; /* Include padding and border in width */
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
 }
 
+/* Date Picker Adjustment */
 .flatpickr-calendar {
-    position: absolute; /* Absolute position */
-    top: 20px; /* Top position */
-    right: 20px; /* Right position */
-    left: auto; /* Auto left position */
-    transform: none; /* No transformation */
-    z-index: 1000; /* Ensure it is above other elements */
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    left: auto !important; /* Override any left positioning */
+    transform: none !important; /* Remove any transform */
+    z-index: 1000;
 }
+
 
 @media (max-width: 768px) {
     .flatpickr-calendar {
-        top: 10px; /* Adjusted top position for medium screens */
-        right: 10px; /* Adjusted right position for medium screens */
+        top: 10px;
+        right: 10px;
     }
 
     .date-container {
-        position: static; /* Static position */
-        margin: 0 auto 20px auto; /* Margin for spacing */
-        max-width: var(--container-width-md); /* Medium container width */
-        width: auto; /* Auto width */
+        position: static;
+        margin: 0 auto 20px auto;
+        max-width: var(--container-width-md);
+        width: auto;
     }
 }
 
 @media (max-width: 480px) {
     .flatpickr-calendar {
-        display: none; /* Hide calendar on small screens */
+        display: none;
     }
 
     .date-container {
-        position: static; /* Static position */
-        margin: 0 auto 20px auto; /* Margin for spacing */
-        max-width: var(--container-width-sm); /* Small container width */
-        width: auto; /* Auto width */
+        position: static;
+        margin: 0 auto 20px auto;
+        max-width: var(--container-width-sm);
+        width: auto;
     }
 }
 
 .date-display {
-    font-size: var(--date-font-size); /* Font size */
-    margin: 0; /* Remove default margin */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-weight: 700; /* Bold font weight */
-    color: var(--text-color); /* Text color */
-    letter-spacing: 0.5px; /* Letter spacing */
-    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed); /* Transition effects */
-    position: relative; /* Position relative for pseudo-elements */
-    text-transform: capitalize; /* Capitalize text */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+    font-size: var(--date-font-size);
+    margin: 0;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: 0.5px;
+    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed);
+    position: relative;
+    text-transform: capitalize;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .date-display:hover {
-    color: var(--highlight-color); /* Text color on hover */
-    transform: scale(1.05); /* Scale up on hover */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Enhanced text shadow on hover */
+    color: var(--highlight-color);
+    transform: scale(1.05);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .date-display::after {
-    content: 'Choose date'; /* Tooltip content */
-    position: absolute; /* Absolute positioning */
-    bottom: -45px; /* Position below date display */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    background-color: var(--tooltip-bg-color); /* Tooltip background color */
-    color: var(--tooltip-text-color); /* Tooltip text color */
-    padding: 0.75rem; /* Padding */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 0.9rem; /* Font size */
-    white-space: nowrap; /* Prevent text wrapping */
-    opacity: 0; /* Initially hidden */
-    visibility: hidden; /* Initially hidden */
-    transition: opacity var(--transition-speed), visibility var(--transition-speed); /* Transition effects */
+    content: 'Choose date';
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--tooltip-bg-color);
+    color: var(--tooltip-text-color);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed), visibility var(--transition-speed);
 }
 
 .date-display:hover::after {
-    opacity: 1; /* Show tooltip on hover */
-    visibility: visible; /* Show tooltip on hover */
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Navigation Buttons */
 .nav-button {
-    background-color: var(--secondary-bg-color); /* Background color */
-    color: var(--text-color); /* Text color */
-    border: none; /* No border */
-    padding: var(--button-padding); /* Padding for button */
-    margin: 6px; /* Margin for spacing */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: var(--border-radius); /* Rounded corners */
-    box-shadow: var(--shadow-light); /* Light shadow */
-    font-weight: 700; /* Bold font weight */
-    font-size: var(--button-font-size); /* Font size */
-    text-align: center; /* Center-align text */
-    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed); /* Transition effects */
+    background-color: var(--secondary-bg-color);
+    color: var(--text-color);
+    border: none;
+    padding: var(--button-padding);
+    margin: 6px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-size: var(--button-font-size);
+    box-shadow: var(--shadow-light);
+    transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .nav-button:hover {
-    background-color: var(--highlight-color); /* Background color on hover */
-    color: var(--primary-bg-color); /* Text color on hover */
-    transform: scale(1.05); /* Slightly scale up on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
-}
-
-.nav-button:focus {
-    outline: none; /* Remove default outline */
-    box-shadow: 0 0 8px var(--highlight-color); /* Shadow effect on focus */
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    #dataTableContainer {
-        width: var(--container-width-md); /* Medium container width */
-    }
-
-    .nav-button {
-        padding: 0.6rem 1rem; /* Adjusted padding for medium screens */
-        font-size: 0.8rem; /* Adjusted font size for medium screens */
-    }
-}
-
-@media (max-width: 480px) {
-    #dataTableContainer {
-        width: var(--container-width-sm); /* Small container width */
-    }
-
-    .nav-button {
-        padding: 0.5rem 0.75rem; /* Adjusted padding for small screens */
-        font-size: 0.7rem; /* Adjusted font size for small screens */
-        max-width: 110px; /* Maximum width for small screens */
-    }
+    background-color: var(--highlight-color);
+    color: var(--primary-bg-color);
+    box-shadow: var(--shadow-medium);
 }
