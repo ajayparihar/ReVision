@@ -95,9 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Filter rows based on the current date
     const filterAndDisplayRows = () => {
+        console.log('Filtering rows for date:', today.format('DD-MM-YYYY'));
         displayedRows = allRows.filter(row => {
             const cols = row.split(',');
             const programDate = moment(cols[1], 'DD-MM-YYYY', true);
+            console.log('Checking row date:', programDate.format('DD-MM-YYYY'), 'against', today.format('DD-MM-YYYY'));
+
             return programDate.isValid() &&
                    (programDate.isSame(today.clone().subtract(1, 'days'), 'day') ||
                     programDate.isSame(today.clone().subtract(15, 'days'), 'day') ||
@@ -105,6 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     programDate.isSame(today.clone().subtract(1, 'months'), 'day') ||
                     programDate.isSame(today.clone().subtract(1, 'years'), 'day'));
         });
+
+        if (displayedRows.length === 0) {
+            console.log('No matching rows found.');
+        }
+
         displayRows(displayedRows);
     };
 
