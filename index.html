@@ -1,6 +1,6 @@
 <!-- 
   Author: Ajay Singh
-  Version: 1.3
+  Version: 1.4
   Date: 01-07-2024
   Description: HTML structure including header with title, data table with search input, date container with navigation buttons and date picker
 -->
@@ -58,6 +58,16 @@
             <button id="nextDay" class="nav-button" aria-label="Next Day">&gt;</button>
         </div>
     </div>
+    
+    <!-- Loading Animation -->
+    <div class="loading-overlay" id="loading">
+        <div class="loader-11">
+            <div></div>
+        </div>
+    </div>
+    
+    <!-- ARIA live region for date announcements -->
+    <p id="dateAnnouncement" aria-live="polite" role="status"></p>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

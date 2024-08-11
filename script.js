@@ -1,11 +1,10 @@
 /**
  * Author: Ajay Singh
- * Version: 1.3
+ * Version: 1.4
  * Date: 01-07-2024
  * Description: JavaScript for handling date display, date picker, data fetching and filtering, search functionality, and date navigation buttons.
  */
 
-// Wait for the DOM to fully load before executing the script
 document.addEventListener('DOMContentLoaded', () => {
     // Elements
     const dateDisplay = document.getElementById('dateDisplay');
@@ -15,26 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerTitle = document.getElementById('headerTitle');
     const prevDayButton = document.getElementById('prevDay');
     const nextDayButton = document.getElementById('nextDay');
+    const loadingElement = document.getElementById('loading');
+    const dateAnnouncement = document.getElementById('dateAnnouncement'); // ARIA live region
 
     // Variables
-    let today = moment(); // Current date using moment.js
-    let flatpickrInstance; // Variable to store flatpickr instance
-    let allRows = []; // Store all rows fetched from CSV
-    let displayedRows = []; // Store currently displayed rows for searching
-    let isFetching = false; // Prevent overlapping fetch requests
-    const DEBOUNCE_DELAY = 300; // Debounce delay for search input
+    let today = moment();
+    let flatpickrInstance;
+    let allRows = [];
+    let displayedRows = [];
+    let isFetching = false;
+    const DEBOUNCE_DELAY = 300;
 
     // Display the current date
     dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
 
-    // Initialize Flatpickr with explicit position settings
+    // Initialize Flatpickr
     flatpickrInstance = flatpickr(datePicker, {
         defaultDate: today.format('YYYY-MM-DD'),
-        position: 'above', // Set position to 'above' to adjust manually
+        position: 'above',
         onChange: (selectedDates) => {
-            today = moment(selectedDates[0]); // Update today's date
+            today = moment(selectedDates[0]);
             dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
-            filterAndDisplayRows(); // Update the data display based on the new date
+            filterAndDisplayRows();
         }
     });
 
@@ -46,34 +47,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to handle link click events
     const handleLinkClick = (event, url) => {
-        if (url && url.trim() && (event.button === 0 || event.button === 1)) {
-            const trimmedUrl = url.trim();
-            if (trimmedUrl) {
-                window.open(trimmedUrl, '_blank');
-            }
+        if (url && url.trim() && (event.button === 0)) {
+            event.preventDefault(); // Prevent default action
+            window.open(url.trim(), '_blank');
         }
     };
 
-    // Fetch and filter data from CSV
-    const fetchDataAndFilter = async () => {
-        if (isFetching) return; // Prevent overlapping fetch requests
-        isFetching = true;
+    // Parse CSV data
+    const parseCSV = (csv) => {
+        return csv.split('\n').map(row => row.trim()).filter(row => {
+            const cols = row.split(',');
+            return cols.length === 4 && cols[1];
+        });
+    };
 
+    // Fetch data
+    const fetchData = async () => {
         try {
             const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRHb7zCNZEfozeuEwtKafE3U_himTnip925rNWnM6F4dZi6ZdVJ3n9Rlwnx26ur2iGxRfeRR5gyr8cJ/pub?gid=0&single=true&output=csv');
             if (!response.ok) throw new Error('Network response was not ok');
             const csv = await response.text();
-            const rows = csv.split('\n').map(row => row.trim()).filter(row => {
-                // Ensure the row has the expected number of columns
-                const cols = row.split(',');
-                return cols.length === 4 && cols[1]; // Ensure the date column (cols[1]) is not empty
-            });
-            allRows = rows;
-            filterAndDisplayRows(); // Filter and display rows based on the current date
+            const parsedData = parseCSV(csv);
+            if (parsedData.length === 0) {
+                console.warn('No data available in the CSV file.');
+            }
+            return parsedData;
         } catch (error) {
             console.error('Error fetching CSV file:', error);
-            tableBody.innerHTML = '<tr><td colspan="3">Nothing to revise today. Enjoy your day!</td></tr>';
+            return [];
+        }
+    };
+
+    // Fetch and filter data
+    const fetchDataAndFilter = async () => {
+        if (isFetching) return;
+        isFetching = true;
+
+        try {
+            loadingElement.style.display = 'flex';
+            allRows = await fetchData();
+            filterAndDisplayRows();
         } finally {
+            loadingElement.style.display = 'none';
             isFetching = false;
         }
     };
@@ -82,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterAndDisplayRows = () => {
         displayedRows = allRows.filter(row => {
             const cols = row.split(',');
-            const programDate = moment(cols[1], 'DD-MM-YYYY', true); // 'true' for strict parsing
+            const programDate = moment(cols[1], 'DD-MM-YYYY', true);
             return programDate.isValid() &&
                    (programDate.isSame(today.clone().subtract(1, 'days'), 'day') ||
                     programDate.isSame(today.clone().subtract(15, 'days'), 'day') ||
@@ -90,18 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     programDate.isSame(today.clone().subtract(1, 'months'), 'day') ||
                     programDate.isSame(today.clone().subtract(1, 'years'), 'day'));
         });
-        displayRows(displayedRows); // Display the rows filtered by date
+        displayRows(displayedRows);
     };
 
     // Highlight search matches
     const highlightText = (text, searchText) => {
-        const pattern = new RegExp(`(${searchText})`, 'gi'); // Match searchText globally and case-insensitive
+        const pattern = new RegExp(`(${searchText})`, 'gi');
         return text.replace(pattern, '<span class="highlight">$1</span>');
     };
 
     // Display rows in the table
     const displayRows = (rows) => {
-        tableBody.innerHTML = ''; // Clear existing data
+        tableBody.innerHTML = '';
         if (rows.length > 0) {
             rows.forEach(row => {
                 const cols = row.split(',');
@@ -109,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const createTableCell = (content, className) => {
                     const cell = document.createElement('td');
-                    cell.innerHTML = content; // Use innerHTML to handle highlighted content
+                    cell.innerHTML = content;
                     if (className) {
                         cell.classList.add(className);
                     }
@@ -141,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
         debounceTimeout = setTimeout(() => {
             const searchText = searchInput.value.trim().toLowerCase();
             if (searchText.length === 0) {
-                // When the search input is cleared, display rows based on the current date filter
                 filterAndDisplayRows();
                 return;
             }
@@ -156,15 +170,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 tableBody.innerHTML = '<tr><td colspan="3">No matching records found.</td></tr>';
             }
-        }, DEBOUNCE_DELAY); // Debounce delay
+        }, DEBOUNCE_DELAY);
     });
 
-    // Date navigation buttons functionality
+    // Update date and fetch data
     const updateDateAndFetchData = (daysToAdd) => {
         today = today.add(daysToAdd, 'days');
         dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
-        flatpickrInstance.setDate(today.format('YYYY-MM-DD'), true); // Update Flatpickr date
-        filterAndDisplayRows(); // Filter and display rows based on the updated date
+        flatpickrInstance.setDate(today.format('YYYY-MM-DD'), true);
+        filterAndDisplayRows();
+        // Removed date announcement update
     };
 
     prevDayButton.addEventListener('click', () => updateDateAndFetchData(-1));
