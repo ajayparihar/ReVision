@@ -406,27 +406,20 @@ h1::after::before {
 
 /* Loader 11: Rotating Circle */
 .loader-11 {
-    position: relative;
+    display: flex; /* Ensure flex display for proper centering */
+    justify-content: center;
+    align-items: center;
     width: 80px;
     height: 80px;
 }
 
 .loader-11 div {
-    position: absolute;
     width: 64px;
     height: 64px;
     border: 8px solid var(--secondary-bg-color);
     border-top-color: var(--highlight-color);
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
-}
-
-/* Centered spinner */
-.loader-11 div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 /* Keyframes for spinning animation */
@@ -438,3 +431,4 @@ h1::after::before {
         transform: rotate(360deg);
     }
 }
+
