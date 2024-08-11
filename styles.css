@@ -1,363 +1,352 @@
 /* 
   Author: Ajay Singh
-  Version: 2.26
+  Version: 1.4
   Date: 11-08-2024
-  Description: Further enhancements for visual appeal and responsiveness.
+  Description: Styles the layout with a grey and yellow theme, adjusts container and element sizes for responsiveness, and includes hover effects and accessibility enhancements.
 */
 
 /* Grey & Yellow Theme */
 :root {
-    --primary-bg-color: #2d2d2d; /* Dark Grey */
-    --secondary-bg-color: #3d3d3d; /* Medium Dark Grey */
+    --primary-bg-color: #1a1a1a; /* Darker Grey */
+    --secondary-bg-color: #2c2c2c; /* Medium Dark Grey */
     --highlight-color: #f4c727; /* Bright Yellow */
-    --text-color: #dcdcdc; /* Light Grey */
-    --border-color: #646464; /* Grey */
-    --row-hover-bg-color: #484848; /* Dark Grey */
-    --tooltip-bg-color: #3d3d3d; /* Medium Dark Grey */
-    --tooltip-text-color: #dcdcdc; /* Light Grey */
-    --header-font-size: 2.5rem; /* Adjusted base size */
-    --header-hover-font-size: 2.25rem;
-    --header-small-font-size: 1.75rem;
-    --container-width-lg: 60%; /* Large screens */
-    --container-width-md: 75%; /* Medium screens */
-    --container-width-sm: 90%; /* Small screens */
-    --container-padding: 1rem;
-    --input-padding: 0.5rem;
-    --button-padding: 0.5rem 1rem;
-    --button-font-size: 0.875rem;
-    --date-font-size: 1rem;
-    --date-small-font-size: 0.875rem;
-    --border-radius: 8px;
-    --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.2);
-    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.3);
-    --transition-speed: 0.3s;
-    --bottom-margin: 20px; /* Reduced bottom margin for spacing */
+    --text-color: #e0e0e0; /* Slightly lighter grey */
+    --border-color: #4a4a4a; /* Dark Grey */
+    --row-hover-bg-color: #333333; /* Even darker grey */
+    --tooltip-bg-color: #2c2c2c; /* Medium Dark Grey */
+    --tooltip-text-color: #e0e0e0; /* Slightly lighter grey */
+    --header-font-size: 2.5rem; /* Header font size */
+    --header-hover-font-size: 2.25rem; /* Header font size on hover */
+    --header-small-font-size: 1.75rem; /* Small header font size */
+    --container-width-lg: 60%; /* Large container width */
+    --container-width-md: 75%; /* Medium container width */
+    --container-width-sm: 90%; /* Small container width */
+    --container-padding: 1.5rem; /* Padding for containers */
+    --input-padding: 0.75rem; /* Padding for input fields */
+    --button-padding: 0.75rem 1.25rem; /* Padding for buttons */
+    --button-font-size: 0.9rem; /* Font size for buttons */
+    --date-font-size: 1.1rem; /* Font size for date display */
+    --date-small-font-size: 0.9rem; /* Smaller font size for date display */
+    --border-radius: 12px; /* Border radius for rounded corners */
+    --highlight-border-radius: 4px; /* Border radius for highlight */
+    --shadow-light: 0 6px 12px rgba(0, 0, 0, 0.25); /* Light shadow */
+    --shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.35); /* Medium shadow */
+    --transition-speed: 0.3s; /* Transition speed for effects */
+    --bottom-margin: 30px; /* Margin for bottom spacing */
 }
 
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--primary-bg-color);
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font family */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    background-color: var(--primary-bg-color); /* Background color */
+    color: var(--text-color); /* Text color */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Vertical layout */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    min-height: 100vh; /* Full viewport height */
+    overflow: auto; /* Allow scrolling if needed */
 }
 
 /* Header */
 header {
-    text-align: center;
-    margin-bottom: var(--bottom-margin);
+    text-align: center; /* Center-align header text */
+    margin-bottom: var(--bottom-margin); /* Bottom margin */
 }
 
 h1 {
-    font-size: var(--header-font-size);
-    margin: 0;
-    cursor: pointer;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    color: var(--text-color);
-    letter-spacing: 1px;
-    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
-    position: relative;
+    font-size: var(--header-font-size); /* Header font size */
+    margin: 0; /* Remove default margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: 700; /* Bold font weight */
+    color: var(--text-color); /* Text color */
+    letter-spacing: 1px; /* Letter spacing */
+    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed); /* Transition effects */
+    position: relative; /* Position relative for pseudo-elements */
+    text-transform: uppercase; /* Uppercase text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
 }
 
 h1:hover {
-    color: var(--highlight-color);
-    transform: scale(1.03);
+    color: var(--highlight-color); /* Text color on hover */
+    transform: scale(1.05); /* Scale up on hover */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Enhanced text shadow on hover */
 }
 
 h1::after {
-    content: 'Refresh';
-    position: absolute;
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--tooltip-bg-color);
-    color: var(--tooltip-text-color);
-    padding: 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--transition-speed), visibility var(--transition-speed);
+    content: 'Refresh'; /* Tooltip content */
+    position: absolute; /* Absolute positioning */
+    bottom: -45px; /* Position below header */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: var(--tooltip-bg-color); /* Tooltip background color */
+    color: var(--tooltip-text-color); /* Tooltip text color */
+    padding: 0.75rem; /* Padding */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 0.9rem; /* Font size */
+    white-space: nowrap; /* Prevent text wrapping */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Initially hidden */
+    transition: opacity var(--transition-speed), visibility var(--transition-speed); /* Transition effects */
 }
 
 @media (max-width: 480px) {
     h1::after {
-        display: none;
+        display: none; /* Hide tooltip on small screens */
     }
 }
 
 h1:hover::after {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1; /* Show tooltip on hover */
+    visibility: visible; /* Show tooltip on hover */
 }
 
 /* Main Container */
 #dataTableContainer {
-    width: var(--container-width-lg);
-    max-width: 100%;
-    background-color: var(--secondary-bg-color);
-    padding: var(--container-padding);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-medium);
-    margin-bottom: var(--bottom-margin);
-    box-sizing: border-box;
-    overflow-x: auto;
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: var(--container-width-lg); /* Container width */
+    max-width: 100%; /* Full width */
+    background-color: var(--secondary-bg-color); /* Background color */
+    padding: var(--container-padding); /* Padding */
+    border-radius: var(--border-radius); /* Rounded corners */
+    box-shadow: var(--shadow-medium); /* Medium shadow */
+    margin-bottom: var(--bottom-margin); /* Bottom margin */
+    box-sizing: border-box; /* Include padding and border in width */
+    overflow-x: auto; /* Horizontal scrolling */
+    border: 1px solid var(--border-color); /* Border */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Vertical layout */
+    align-items: center; /* Center items horizontally */
 }
 
 /* Search Bar */
 #searchInput {
-    margin: 10px 0;
-    padding: var(--input-padding);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    width: 100%;
-    background-color: var(--secondary-bg-color);
-    color: var(--text-color);
-    box-sizing: border-box;
-    transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+    margin: 12px 0; /* Margin for spacing */
+    padding: var(--input-padding); /* Padding */
+    border: 1px solid var(--border-color); /* Border color */
+    border-radius: var(--border-radius); /* Rounded corners */
+    width: 100%; /* Full width */
+    background-color: var(--secondary-bg-color); /* Background color */
+    color: var(--text-color); /* Text color */
+    box-sizing: border-box; /* Include padding and border in width */
+    transition: border-color var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed); /* Transition effects */
 }
 
 #searchInput:focus {
-    border-color: var(--highlight-color);
-    background-color: var(--primary-bg-color);
+    border-color: var(--highlight-color); /* Border color on focus */
+    background-color: var(--primary-bg-color); /* Background color on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px var(--highlight-color); /* Shadow effect on focus */
 }
 
 /* Data Table */
 #dataTable {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+    table-layout: auto; /* Auto layout */
 }
 
 #dataTable th, #dataTable td {
-    padding: var(--input-padding);
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
-    white-space: nowrap;
-    overflow: hidden;
+    padding: var(--input-padding); /* Padding */
+    border-bottom: 1px solid var(--border-color); /* Border color */
+    color: var(--text-color); /* Text color */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow */
+    transition: background-color var(--transition-speed); /* Transition effects */
 }
 
 #dataTable th {
-    text-align: left;
-    background-color: var(--secondary-bg-color);
-    font-weight: bold;
-    word-wrap: break-word;
+    text-align: left; /* Left-align text */
+    background-color: var(--secondary-bg-color); /* Background color */
+    font-weight: 700; /* Bold font weight */
+    word-wrap: break-word; /* Break words if needed */
 }
 
 #dataTable td {
-    text-align: left;
-    white-space: normal;
-    word-wrap: break-word;
+    text-align: left; /* Left-align text */
+    white-space: normal; /* Allow text wrapping */
+    word-wrap: break-word; /* Break words if needed */
 }
 
 /* Adjusting date column specifically */
 #dataTable td.date-column {
-    max-width: 120px; /* Adjusted max-width for date column */
+    max-width: 160px; /* Maximum width for date column */
 }
 
 /* Program Name Highlight */
 #dataTable td.program-name {
-    color: var(--highlight-color);
-    font-weight: bold;
+    color: var(--highlight-color); /* Text color */
+    font-weight: 700; /* Bold font weight */
+    /* Removed background color */
+    /* Removed border styling */
 }
 
 /* Table Row Hover Effect */
 #dataTable tr:hover {
-    background-color: var(--row-hover-bg-color);
+    background-color: var(--row-hover-bg-color); /* Background color on hover */
+    transition: background-color var(--transition-speed); /* Transition effects */
 }
 
 /* Highlight */
 .highlight {
-    background-color: var(--highlight-color);
-    color: var(--primary-bg-color);
+    background-color: var(--highlight-color); /* Background color */
+    color: var(--primary-bg-color); /* Text color */
+    border-radius: var(--highlight-border-radius); /* Rounded corners for highlight */
 }
 
 /* Date Display and Calendar */
 .date-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: var(--secondary-bg-color);
-    padding: var(--input-padding);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-medium);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    z-index: 1000;
-    gap: 10px;
-    max-width: calc(100% - 40px);
-    overflow: hidden;
-    border: 1px solid var(--border-color);
+    position: fixed; /* Fixed position */
+    top: 20px; /* Top position */
+    right: 20px; /* Right position */
+    background-color: var(--secondary-bg-color); /* Background color */
+    color: var(--text-color); /* Text color */
+    padding: var(--container-padding); /* Padding */
+    border-radius: var(--border-radius); /* Rounded corners */
+    box-shadow: var(--shadow-medium); /* Medium shadow */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Vertical layout */
+    align-items: center; /* Center items horizontally */
+    box-sizing: border-box; /* Include padding and border in width */
+    z-index: 1000; /* Ensure it is above other elements */
+    gap: 10px; /* Gap between elements */
+    max-width: calc(100% - 40px); /* Maximum width */
+    overflow: hidden; /* Hide overflow */
+    border: 1px solid var(--border-color); /* Border color */
 }
 
-/* Adjusting inner elements of the date container */
 .date-container > * {
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
+    width: 100%; /* Full width */
+    text-align: center; /* Center-align text */
+    box-sizing: border-box; /* Include padding and border in width */
 }
 
-/* Adjust date picker */
 .flatpickr-calendar {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    left: auto !important;
-    transform: none !important;
-    z-index: 1000;
+    position: absolute; /* Absolute position */
+    top: 20px; /* Top position */
+    right: 20px; /* Right position */
+    left: auto; /* Auto left position */
+    transform: none; /* No transformation */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+@media (max-width: 768px) {
+    .flatpickr-calendar {
+        top: 10px; /* Adjusted top position for medium screens */
+        right: 10px; /* Adjusted right position for medium screens */
+    }
+
+    .date-container {
+        position: static; /* Static position */
+        margin: 0 auto 20px auto; /* Margin for spacing */
+        max-width: var(--container-width-md); /* Medium container width */
+        width: auto; /* Auto width */
+    }
 }
 
 @media (max-width: 480px) {
     .flatpickr-calendar {
-        display: none !important;
+        display: none; /* Hide calendar on small screens */
     }
 
     .date-container {
-        position: static;
-        margin: 0 auto 20px auto;
-        max-width: 100%;
-        width: auto;
+        position: static; /* Static position */
+        margin: 0 auto 20px auto; /* Margin for spacing */
+        max-width: var(--container-width-sm); /* Small container width */
+        width: auto; /* Auto width */
     }
 }
 
 .date-display {
-    font-size: var(--date-font-size);
-    margin: 0;
-    cursor: pointer;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    color: var(--text-color);
-    letter-spacing: 1px;
-    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
-    position: relative;
+    font-size: var(--date-font-size); /* Font size */
+    margin: 0; /* Remove default margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: 700; /* Bold font weight */
+    color: var(--text-color); /* Text color */
+    letter-spacing: 0.5px; /* Letter spacing */
+    transition: color var(--transition-speed), transform var(--transition-speed), text-shadow var(--transition-speed); /* Transition effects */
+    position: relative; /* Position relative for pseudo-elements */
+    text-transform: capitalize; /* Capitalize text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
 }
 
 .date-display:hover {
-    color: var(--highlight-color);
-    transform: scale(1.03);
+    color: var(--highlight-color); /* Text color on hover */
+    transform: scale(1.05); /* Scale up on hover */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Enhanced text shadow on hover */
 }
 
 .date-display::after {
-    content: 'Choose date';
-    position: absolute;
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--tooltip-bg-color);
-    color: var(--tooltip-text-color);
-    padding: 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--transition-speed), visibility var(--transition-speed);
+    content: 'Choose date'; /* Tooltip content */
+    position: absolute; /* Absolute positioning */
+    bottom: -45px; /* Position below date display */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: var(--tooltip-bg-color); /* Tooltip background color */
+    color: var(--tooltip-text-color); /* Tooltip text color */
+    padding: 0.75rem; /* Padding */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 0.9rem; /* Font size */
+    white-space: nowrap; /* Prevent text wrapping */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Initially hidden */
+    transition: opacity var(--transition-speed), visibility var(--transition-speed); /* Transition effects */
 }
 
 .date-display:hover::after {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1; /* Show tooltip on hover */
+    visibility: visible; /* Show tooltip on hover */
 }
 
 /* Navigation Buttons */
 .nav-button {
-    background-color: var(--secondary-bg-color);
-    color: var(--text-color);
-    border: none;
-    padding: 0.5rem 1rem;
-    margin: 4px;
-    cursor: pointer;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
-    font-weight: bold;
-    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
-    font-size: 0.875rem;
-    max-width: 120px;
-    text-align: center;
+    background-color: var(--secondary-bg-color); /* Background color */
+    color: var(--text-color); /* Text color */
+    border: none; /* No border */
+    padding: var(--button-padding); /* Padding for button */
+    margin: 6px; /* Margin for spacing */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: var(--border-radius); /* Rounded corners */
+    box-shadow: var(--shadow-light); /* Light shadow */
+    font-weight: 700; /* Bold font weight */
+    font-size: var(--button-font-size); /* Font size */
+    text-align: center; /* Center-align text */
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed); /* Transition effects */
 }
 
 .nav-button:hover {
-    background-color: var(--highlight-color);
-    color: var(--primary-bg-color);
-    transform: scale(1.03);
+    background-color: var(--highlight-color); /* Background color on hover */
+    color: var(--primary-bg-color); /* Text color on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
 }
 
 .nav-button:focus {
-    outline: none;
-    box-shadow: 0 0 8px var(--highlight-color);
-}
-
-.date-buttons {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 0;
-    gap: 6px;
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 8px var(--highlight-color); /* Shadow effect on focus */
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     #dataTableContainer {
-        width: var(--container-width-md);
-    }
-
-    h1 {
-        font-size: var(--header-hover-font-size);
+        width: var(--container-width-md); /* Medium container width */
     }
 
     .nav-button {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.75rem;
+        padding: 0.6rem 1rem; /* Adjusted padding for medium screens */
+        font-size: 0.8rem; /* Adjusted font size for medium screens */
     }
 }
 
 @media (max-width: 480px) {
     #dataTableContainer {
-        width: var(--container-width-sm);
-        padding: 0.5rem;
-    }
-
-    #searchInput {
-        padding: 0.5rem;
-    }
-
-    h1 {
-        font-size: var(--header-small-font-size);
-    }
-
-    .date-container {
-        position: static;
-        margin: 0 auto 20px auto;
-        max-width: 100%;
-        width: auto;
-    }
-
-    .date-display {
-        font-size: var(--date-small-font-size);
-    }
-
-    header {
-        margin-top: 10px;
+        width: var(--container-width-sm); /* Small container width */
     }
 
     .nav-button {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.625rem;
-        max-width: 100px;
+        padding: 0.5rem 0.75rem; /* Adjusted padding for small screens */
+        font-size: 0.7rem; /* Adjusted font size for small screens */
+        max-width: 110px; /* Maximum width for small screens */
     }
 }
