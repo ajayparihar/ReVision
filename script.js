@@ -1,7 +1,7 @@
 /**
  * Author: Ajay Singh
  * Version: 1.4
- * Date: 01-07-2024
+ * Date: 12-08-2024
  * Description: JavaScript for handling date display, date picker, data fetching and filtering, search functionality, and date navigation buttons.
  */
 
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const parseCSV = (csv) => {
         return csv.split('\n').map(row => row.trim()).filter(row => {
             const cols = row.split(',');
-            return cols.length === 4 && cols[1];
+            return cols.length >= 4 && cols[1];
         });
     };
 
@@ -187,7 +187,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dateDisplay.textContent = today.format('dddd, DD MMMM YYYY');
         flatpickrInstance.setDate(today.format('YYYY-MM-DD'), true);
         filterAndDisplayRows();
-        // Removed date announcement update
+        // Update ARIA live region
+        // dateAnnouncement.textContent = `Date updated to ${today.format('dddd, DD MMMM YYYY')}`;
     };
 
     prevDayButton.addEventListener('click', () => updateDateAndFetchData(-1));
