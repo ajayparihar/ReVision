@@ -1,6 +1,6 @@
 /* 
   Author: Ajay Singh
-  Version: 1.6
+  Version: 1.4
   Date: 11-08-2024
   Description: Enhanced loading animation with improved hover messages and tooltips.
 */
@@ -56,7 +56,7 @@ body {
     overflow: auto;
 }
 
-/* Header */
+/* Header Styles */
 header {
     text-align: center;
     margin-bottom: var(--bottom-margin);
@@ -124,7 +124,7 @@ h1::after::before {
     border-color: transparent transparent var(--tooltip-bg-color) transparent;
 }
 
-/* Main Container */
+/* Main Container Styles */
 #dataTableContainer {
     width: var(--container-width-lg);
     max-width: 100%;
@@ -161,7 +161,7 @@ h1::after::before {
     }
 }
 
-/* Search Bar */
+/* Search Bar Styles */
 #searchInput {
     margin: 12px 0;
     padding: var(--input-padding);
@@ -181,14 +181,15 @@ h1::after::before {
     box-shadow: 0 0 5px var(--highlight-color);
 }
 
-/* Data Table */
+/* Data Table Styles */
 #dataTable {
     width: 100%;
     border-collapse: collapse;
     table-layout: auto;
 }
 
-#dataTable th, #dataTable td {
+#dataTable th,
+#dataTable td {
     padding: var(--input-padding);
     border-bottom: 1px solid var(--border-color);
     color: var(--text-color);
@@ -225,14 +226,14 @@ h1::after::before {
     background-color: var(--row-hover-bg-color);
 }
 
-/* Highlight */
+/* Highlight Class */
 .highlight {
     background-color: var(--highlight-color);
     color: var(--primary-bg-color);
     border-radius: var(--highlight-border-radius);
 }
 
-/* Date Display and Calendar */
+/* Date Display and Calendar Styles */
 .date-container {
     position: fixed;
     top: 20px;
@@ -369,7 +370,7 @@ h1::after::before {
     border-color: transparent transparent var(--tooltip-bg-color) transparent;
 }
 
-/* Navigation Buttons */
+/* Navigation Buttons Styles */
 .nav-button {
     background-color: var(--secondary-bg-color);
     color: var(--text-color);
@@ -406,7 +407,7 @@ h1::after::before {
 
 /* Loader 11: Rotating Circle */
 .loader-11 {
-    display: flex; /* Ensure flex display for proper centering */
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 80px;
@@ -431,4 +432,3 @@ h1::after::before {
         transform: rotate(360deg);
     }
 }
-

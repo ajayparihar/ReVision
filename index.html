@@ -1,8 +1,8 @@
 <!-- 
   Author: Ajay Singh
   Version: 1.4
-  Date: 01-07-2024
-  Description: HTML structure including header with title, data table with search input, date container with navigation buttons and date picker
+  Date: 2024-08-12
+  Description: HTML structure for the ReVision application. Includes a header with the title, a data table with a search input, a date container with navigation buttons and a date picker.
 -->
 
 <!DOCTYPE html>
@@ -33,8 +33,14 @@
 
     <!-- Data Table Container -->
     <div id="dataTableContainer">
-        <input type="text" id="searchInput" class="search-bar" placeholder="Search..." autofocus
-            aria-label="Search Input">
+        <input 
+            type="text" 
+            id="searchInput" 
+            class="search-bar" 
+            placeholder="Search..." 
+            autofocus 
+            aria-label="Search Input"
+        >
         <table id="dataTable">
             <thead>
                 <tr>
@@ -52,7 +58,12 @@
     <!-- Date Picker and Navigation -->
     <div class="date-container">
         <p id="dateDisplay" class="date-display"></p>
-        <input type="text" id="datePicker" style="display:none;" aria-label="Date Picker">
+        <input 
+            type="text" 
+            id="datePicker" 
+            style="display:none;" 
+            aria-label="Date Picker"
+        >
         <div class="date-buttons">
             <button id="prevDay" class="nav-button" aria-label="Previous Day">&lt;</button>
             <button id="nextDay" class="nav-button" aria-label="Next Day">&gt;</button>
