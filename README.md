@@ -3,7 +3,7 @@
 # **ReVision Documentation**
 
 ## **Access Link**  
-[Click here to access the application](#) *https://ajayparihar.github.io/ReVision*
+[Click here to access the application](https://ajayparihar.github.io/ReVision)
 
 ---
 
